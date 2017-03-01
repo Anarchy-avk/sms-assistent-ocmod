@@ -19,6 +19,7 @@ $_['entry_customer_order_create_text']		= 'Шаблон SMS сообщения';
 $_['text_admin_order_create']				= 'Уведомление администраторам, при создании заказа пользователями';
 $_['entry_admin_order_create_status']	= 'Статус';
 $_['entry_admin_order_create_phones']	= 'Номера телефонов';
+$_['help_admin_order_create_phones']	= 'Номера телефонов перечисляются через ;';
 $_['entry_admin_order_create_text']		= 'Шаблон SMS сообщения';
 
 // Error

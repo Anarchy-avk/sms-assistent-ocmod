@@ -106,7 +106,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-admin-order-create-phones"><?php echo $entry_admin_order_create_phones; ?></label>
+              <label class="col-sm-2 control-label" for="input-admin-order-create-phones"><span data-toggle="tooltip" title="<?php echo $help_admin_order_create_phones; ?>"><?php echo $entry_admin_order_create_phones; ?></label>
               <div class="col-sm-10">
                 <input type="text" name="smsassistent_admin_order_create_phones" value="<?php echo $smsassistent_admin_order_create_phones; ?>" placeholder="<?php echo $smsassistent_admin_order_create_phones; ?>" id="input-admin-order-create-phones" class="form-control" />
               </div>

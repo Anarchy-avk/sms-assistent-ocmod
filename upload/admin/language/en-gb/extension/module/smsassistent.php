@@ -19,6 +19,7 @@ $_['entry_customer_order_create_text']		= 'Template of SMS notification';
 $_['text_admin_order_create']				= 'Send notification to administrators, after order create by customer';
 $_['entry_admin_order_create_status']	= 'Status';
 $_['entry_admin_order_create_phones']	= 'Phone numbers';
+$_['help_admin_order_create_phones']	= 'Phone numbers are listed through ;';
 $_['entry_admin_order_create_text']		= 'Template of SMS notification';
 
 // Error

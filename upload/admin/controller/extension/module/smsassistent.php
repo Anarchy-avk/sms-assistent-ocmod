@@ -46,6 +46,7 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 		$data['text_admin_order_create'] = $this->language->get('text_admin_order_create');
 		$data['entry_admin_order_create_status'] = $this->language->get('entry_admin_order_create_status');
 		$data['entry_admin_order_create_phones'] = $this->language->get('entry_admin_order_create_phones');
+		$data['help_admin_order_create_phones'] = $this->language->get('help_admin_order_create_phones');
 		$data['entry_admin_order_create_text'] = $this->language->get('entry_admin_order_create_text');
 
 		if (isset($this->error['warning'])) {
