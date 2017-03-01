@@ -1,0 +1,6 @@
+{
+    "require": {
+        "by-zer0/sms-assistant-php": "1.2",
+        "guzzlehttp/guzzle": "^6.2"
+    }
+}
