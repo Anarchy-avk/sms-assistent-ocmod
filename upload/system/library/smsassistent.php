@@ -35,19 +35,78 @@ class SMSAssistent{
 
 	}
 
-	public function sendCustomerNotification($phone) {
+	private function prepareMessage($template, $order_info, $order_product_query) {
 
-		$this->client->sendMessage($phone, $this->config->get('smsassistent_customer_order_create_text'));
+		$find = array(
+			'{store_name}',
+			'{store_url}',
+			'{order_id}',
+			'{date_added}',
+			'{payment_method}',
+			'{payment_code}',
+			'{email}',
+			'{telephone}',
+			'{firstname}',
+			'{lastname}',
+			'{total}',
+			'{products_ids}',
+			'{products_names}',
+			'{products_names_prices}'
+		);
+
+		$products_ids = '';
+		$products_names = '';
+		$products_names_prices = '';
+		foreach ($order_product_query->rows as $product) {
+			$products_ids .= $product['product_id'] . ',';
+			$products_names .= $product['name'] . ' ' . $product['model'] . ',';
+			$products_names_prices .= $product['name'] . ' ' . $product['model'] . '(' . $product['total'] . ')' . ',';
+		}
+		$products_ids = substr($products_ids, 0, -1);
+		$products_names = substr($products_names, 0, -1);
+		$products_names_prices = substr($products_names_prices, 0, -1);
+
+		$replace = array(
+			'store_name'	=> $order_info['store_name'],
+			'store_url'		=> $order_info['store_url'],
+			'order_id'		=> $order_info['order_id'],
+			'date_added'	=> $order_info['date_added'],
+			'payment_method'	=> $order_info['payment_method'],
+			'payment_code'		=> $order_info['payment_code'],
+			'email'		=> $order_info['email'],
+			'telephone'	=> $order_info['telephone'],
+			'firstname'	=> $order_info['firstname'],
+			'lastname'	=> $order_info['lastname'],
+			'total'		=> $order_info['total'],
+			'products_ids'			=> $products_ids,
+			'products_names'		=> $products_names,
+			'products_names_prices'	=> $products_names_prices
+		);
+
+		$messageText = str_replace($find, $replace, $template);
+
+		return $messageText;
 
 	}
 
-	public function sendAdminNotification() {
+	public function sendCustomerNotification($order_info, $order_product_query) {
+
+		$phone = $order_info['telephone'];
+		$messageText = $this->prepareMessage($this->config->get('smsassistent_customer_order_create_text'), $order_info, $order_product_query);
+
+		$this->client->sendMessage($phone, $messageText);
+
+	}
+
+	public function sendAdminNotification($order_info, $order_product_query) {
 
 		$phones = explode(';', $this->config->get('smsassistent_admin_order_create_phones'));
 
 		if (count($phones) > 0) {
+
+			$messageText = $this->prepareMessage($this->config->get('smsassistent_admin_order_create_text'), $order_info, $order_product_query);
 			$default = [
-				'text' => $this->config->get('smsassistent_admin_order_create_text')
+				'text' => $messageText
 			];
 
 			$messages = [];
