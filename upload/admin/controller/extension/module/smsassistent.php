@@ -48,6 +48,9 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 		$data['entry_admin_order_create_phones'] = $this->language->get('entry_admin_order_create_phones');
 		$data['help_admin_order_create_phones'] = $this->language->get('help_admin_order_create_phones');
 		$data['entry_admin_order_create_text'] = $this->language->get('entry_admin_order_create_text');
+		$data['pane_sms_text'] = $this->language->get('pane_sms_text');
+		$data['pane_sms_template'] = $this->language->get('pane_sms_template');
+		$data['pane_sms_template_text'] = $this->language->get('pane_sms_template_text');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];

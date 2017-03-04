@@ -84,8 +84,19 @@
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-customer-order-create-text"><?php echo $entry_customer_order_create_text; ?></label>
-              <div class="col-sm-10">
-                <textarea name="smsassistent_customer_order_create_text" rows="5" placeholder="<?php echo $smsassistent_customer_order_create_text; ?>" id="input-customer-order-create-text" class="form-control"><?php echo $smsassistent_customer_order_create_text; ?></textarea>
+              <ul class="col-sm-10 nav nav-tabs" id="customer-order-create-text">
+                <li class="active"><a href="#tab-customer-order-create-text" data-toggle="tab"><?php echo $pane_sms_text; ?></a></li>
+                <li><a href="#tab-customer-order-create-template" data-toggle="tab"><?php echo $pane_sms_template; ?></a></li>
+              </ul>
+              <div class="col-sm-2">
+              </div>
+              <div class="col-sm-10 tab-content">
+                <div class="tab-pane active" id="tab-customer-order-create-text">
+                  <textarea name="smsassistent_customer_order_create_text" rows="5" placeholder="<?php echo $smsassistent_customer_order_create_text; ?>" id="input-customer-order-create-text" class="form-control"><?php echo $smsassistent_customer_order_create_text; ?></textarea>
+                </div>
+                <div class="tab-pane" id="tab-customer-order-create-template">
+                  <p><?php echo $pane_sms_template_text; ?></p>
+                </div>
               </div>
             </div>
           </fieldset>
@@ -113,8 +124,19 @@
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-admin-order-create-text"><?php echo $entry_admin_order_create_text; ?></label>
-              <div class="col-sm-10">
-                <textarea name="smsassistent_admin_order_create_text" rows="5" placeholder="<?php echo $smsassistent_admin_order_create_text; ?>" id="input-admin-order-create-text" class="form-control"><?php echo $smsassistent_admin_order_create_text; ?></textarea>
+              <ul class="col-sm-10 nav nav-tabs" id="admin-order-create-text">
+                <li class="active"><a href="#tab-admin-order-create-text" data-toggle="tab"><?php echo $pane_sms_text; ?></a></li>
+                <li><a href="#tab-admin-order-create-template" data-toggle="tab"><?php echo $pane_sms_template; ?></a></li>
+              </ul>
+              <div class="col-sm-2">
+              </div>
+              <div class="col-sm-10 tab-content">
+                <div class="tab-pane active" id="tab-admin-order-create-text">
+                  <textarea name="smsassistent_admin_order_create_text" rows="5" placeholder="<?php echo $smsassistent_admin_order_create_text; ?>" id="input-admin-order-create-text" class="form-control"><?php echo $smsassistent_admin_order_create_text; ?></textarea>
+                </div>
+                <div class="tab-pane" id="tab-admin-order-create-template">
+                  <p><?php echo $pane_sms_template_text; ?></p>
+                </div>
               </div>
             </div>
           </fieldset>
