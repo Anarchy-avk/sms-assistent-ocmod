@@ -37,23 +37,6 @@ class SMSAssistent{
 
 	private function prepareMessage($template, $order_info, $order_product_query, $currency) {
 
-		$find = array(
-			'{store_name}',
-			'{store_url}',
-			'{order_id}',
-			'{date_added}',
-			'{payment_method}',
-			'{payment_code}',
-			'{email}',
-			'{telephone}',
-			'{firstname}',
-			'{lastname}',
-			'{total}',
-			'{products_ids}',
-			'{products_names}',
-			'{products_names_prices}'
-		);
-
 		$products_ids = '';
 		$products_names = '';
 		$products_names_prices = '';
@@ -66,24 +49,24 @@ class SMSAssistent{
 		$products_names = substr($products_names, 0, -1);
 		$products_names_prices = substr($products_names_prices, 0, -1);
 
-		$replace = array(
-			'store_name'	=> $order_info['store_name'],
-			'store_url'		=> $order_info['store_url'],
-			'order_id'		=> $order_info['order_id'],
-			'date_added'	=> $order_info['date_added'],
-			'payment_method'	=> $order_info['payment_method'],
-			'payment_code'		=> $order_info['payment_code'],
-			'email'		=> $order_info['email'],
-			'telephone'	=> $order_info['telephone'],
-			'firstname'	=> $order_info['firstname'],
-			'lastname'	=> $order_info['lastname'],
-			'total'		=> $currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value']),
-			'products_ids'			=> $products_ids,
-			'products_names'		=> $products_names,
-			'products_names_prices'	=> $products_names_prices
+		$findReplace = array(
+			'{store_name}'				=> $order_info['store_name'],
+			'{store_url}'				=> $order_info['store_url'],
+			'{order_id}'				=> $order_info['order_id'],
+			'{date_added}'				=> $order_info['date_added'],
+			'{payment_method}'			=> $order_info['payment_method'],
+			'{payment_code}'			=> $order_info['payment_code'],
+			'{email}'					=> $order_info['email'],
+			'{telephone}'				=> $order_info['telephone'],
+			'{firstname}'				=> $order_info['firstname'],
+			'{lastname}'				=> $order_info['lastname'],
+			'{total}'					=> $currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value']),
+			'{products_ids}'			=> $products_ids,
+			'{products_names}'			=> $products_names,
+			'{products_names_prices}'	=> $products_names_prices
 		);
 
-		$messageText = str_replace($find, $replace, $template);
+		$messageText = str_replace(array_keys($findReplace), array_values($findReplace), $template);
 
 		return $messageText;
 
