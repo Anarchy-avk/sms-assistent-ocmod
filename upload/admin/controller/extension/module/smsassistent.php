@@ -48,6 +48,10 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 		$data['entry_admin_order_create_phones'] = $this->language->get('entry_admin_order_create_phones');
 		$data['help_admin_order_create_phones'] = $this->language->get('help_admin_order_create_phones');
 		$data['entry_admin_order_create_text'] = $this->language->get('entry_admin_order_create_text');
+		$data['text_logs'] = $this->language->get('text_logs');
+		$data['pane_main_settings'] = $this->language->get('pane_main_settings');
+		$data['pane_notification_settings'] = $this->language->get('pane_notification_settings');
+		$data['pane_logs'] = $this->language->get('pane_logs');
 		$data['pane_sms_text'] = $this->language->get('pane_sms_text');
 		$data['pane_sms_template'] = $this->language->get('pane_sms_template');
 		$data['pane_sms_template_text'] = $this->language->get('pane_sms_template_text');
@@ -89,6 +93,12 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 		$this->loadData($data, 'smsassistent_admin_order_create_status');
 		$this->loadData($data, 'smsassistent_admin_order_create_phones');
 		$this->loadData($data, 'smsassistent_admin_order_create_text');
+
+		$data['smsassistent_log'] = '';
+		$file = DIR_LOGS . 'smsassistent.log';
+		if (file_exists($file)) {
+			$data['smsassistent_log'] = file_get_contents($file, FILE_USE_INCLUDE_PATH, null);
+		}
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');

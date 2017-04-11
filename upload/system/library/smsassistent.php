@@ -33,6 +33,8 @@ class SMSAssistent{
 			$this->client->setSender($this->config->get('smsassistent_sender_name'));
 		}
 
+		$this->logger = new \Log('smsassistent.log');
+
 	}
 
 	private function prepareMessage($template, $order_info, $order_product_query, $currency) {
@@ -76,8 +78,12 @@ class SMSAssistent{
 
 		$phone = $order_info['telephone'];
 		$messageText = $this->prepareMessage($this->config->get('smsassistent_customer_order_create_text'), $order_info, $order_product_query, $currency);
+		try {
+			$this->client->sendMessage($phone, $messageText);
+		} catch (Exception $e) {
+			$this->logger->write($e->getMessage());
+		}
 
-		$this->client->sendMessage($phone, $messageText);
 
 	}
 
@@ -99,7 +105,11 @@ class SMSAssistent{
 				];
 			}
 
-			$this->client->sendMessages($messages, $default);
+			try {
+				$this->client->sendMessages($messages, $default);
+			} catch (Exception $e) {
+				$this->logger->write($e->getMessage());
+			}
 		}
 	}
 
