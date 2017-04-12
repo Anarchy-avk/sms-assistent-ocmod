@@ -4,6 +4,7 @@ require 'smsassistent/vendor/autoload.php';
 
 use ByZer0\SmsAssistantBy\Client;
 use ByZer0\SmsAssistantBy\Http\GuzzleClient;
+use ByZer0\SmsAssistantBy\Exceptions;
 
 class SMSAssistent{
 
@@ -80,8 +81,8 @@ class SMSAssistent{
 		$messageText = $this->prepareMessage($this->config->get('smsassistent_customer_order_create_text'), $order_info, $order_product_query, $currency);
 		try {
 			$this->client->sendMessage($phone, $messageText);
-		} catch (Exception $e) {
-			$this->logger->write($e->getMessage());
+		} catch (Exceptions\Exception $e) {
+			$this->logger->write('error');
 		}
 
 
@@ -107,8 +108,8 @@ class SMSAssistent{
 
 			try {
 				$this->client->sendMessages($messages, $default);
-			} catch (Exception $e) {
-				$this->logger->write($e->getMessage());
+			} catch (Exceptions\Exception $e) {
+				$this->logger->write('error');
 			}
 		}
 	}
