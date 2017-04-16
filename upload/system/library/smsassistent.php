@@ -15,11 +15,11 @@ class SMSAssistent{
 		$this->config = $extConfig;
 
 		$this->client = new Client(new GuzzleClient());
-		$this->client->setUsername($this->config->get('smsassistent_api_username'));
+		$this->client->setUsername($this->config->get('smsassistent_ms_api_username'));
 
-		$api_token = $this->config->get('smsassistent_api_token');
-		$api_password = $this->config->get('smsassistent_api_password');
-		$sender_name = $this->config->get('smsassistent_sender_name');
+		$api_token = $this->config->get('smsassistent_ms_api_token');
+		$api_password = $this->config->get('smsassistent_ms_api_password');
+		$sender_name = $this->config->get('smsassistent_ms_sender_name');
 
 		if ($api_token !== '')
 		{
@@ -31,7 +31,7 @@ class SMSAssistent{
 
 		if ($sender_name !== '')
 		{
-			$this->client->setSender($this->config->get('smsassistent_sender_name'));
+			$this->client->setSender($this->config->get('smsassistent_ms_sender_name'));
 		}
 
 		$this->logger = new \Log('smsassistent.log');
@@ -78,7 +78,7 @@ class SMSAssistent{
 	public function sendCustomerNotification($order_info, $order_product_query, $currency) {
 
 		$phone = $order_info['telephone'];
-		$messageText = $this->prepareMessage($this->config->get('smsassistent_customer_order_create_text'), $order_info, $order_product_query, $currency);
+		$messageText = $this->prepareMessage($this->config->get('smsassistent_naco_customer_text'), $order_info, $order_product_query, $currency);
 		try {
 			$this->client->sendMessage($phone, $messageText);
 		} catch (Exceptions\LowBalanceException $e) {
@@ -113,11 +113,11 @@ class SMSAssistent{
 
 	public function sendAdminNotification($order_info, $order_product_query, $currency) {
 
-		$phones = explode(';', $this->config->get('smsassistent_admin_order_create_phones'));
+		$phones = explode(';', $this->config->get('smsassistent_naco_admin_phones'));
 
 		if (count($phones) > 0) {
 
-			$messageText = $this->prepareMessage($this->config->get('smsassistent_admin_order_create_text'), $order_info, $order_product_query, $currency);
+			$messageText = $this->prepareMessage($this->config->get('smsassistent_naco_admin_text'), $order_info, $order_product_query, $currency);
 			$default = [
 				'text' => $messageText
 			];

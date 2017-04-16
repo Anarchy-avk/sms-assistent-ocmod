@@ -22,12 +22,12 @@
                 // Admin Alert Mail
             ]]></search>
             <add position="after"><![CDATA[
-                if ($this->config->get('smsassistent_status') == "1") {
-                    if ($this->config->get('smsassistent_customer_order_create_status') == "1") {
+                if ($this->config->get('smsassistent_ms_status') == "1") {
+                    if ($this->config->get('smsassistent_naco_customer_status') == "1") {
                         $sms = new SMSAssistent($this->config);
                         $sms->sendCustomerNotification($order_info, $order_product_query, $this->currency);
                     }
-                    if ($this->config->get('smsassistent_admin_order_create_status') == "1") {
+                    if ($this->config->get('smsassistent_naco_admin_status') == "1") {
                         $sms = new SMSAssistent($this->config);
                         $sms->sendAdminNotification($order_info, $order_product_query, $this->currency);
                     }

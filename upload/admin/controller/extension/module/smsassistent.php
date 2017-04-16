@@ -58,6 +58,20 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 		$data['pane_naco_sms_template'] = $this->language->get('pane_naco_sms_template');
 		$data['pane_naco_sms_template_text'] = $this->language->get('pane_naco_sms_template_text');
 
+		// Notifications after register customer (narc)
+		$data['pane_narc'] = $this->language->get('pane_narc');
+		$data['text_narc_customer'] = $this->language->get('text_narc_customer');
+		$data['entry_narc_customer_status'] = $this->language->get('entry_narc_customer_status');
+		$data['entry_narc_customer_text'] = $this->language->get('entry_narc_customer_text');
+		$data['text_narc_admin'] = $this->language->get('text_narc_admin');
+		$data['entry_narc_admin_status'] = $this->language->get('entry_narc_admin_status');
+		$data['entry_narc_admin_phones'] = $this->language->get('entry_narc_admin_phones');
+		$data['help_narc_admin_phones'] = $this->language->get('help_narc_admin_phones');
+		$data['entry_narc_admin_text'] = $this->language->get('entry_narc_admin_text');
+		$data['pane_narc_sms_text'] = $this->language->get('pane_narc_sms_text');
+		$data['pane_narc_sms_template'] = $this->language->get('pane_narc_sms_template');
+		$data['pane_narc_sms_template_text'] = $this->language->get('pane_narc_sms_template_text');
+
 		// Logs (logs)
 		$data['pane_logs'] = $this->language->get('pane_logs');
 		$data['text_logs'] = $this->language->get('text_logs');
@@ -89,16 +103,16 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 
 		$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', 'SSL');
 
-		$this->loadData($data, 'smsassistent_status');
-		$this->loadData($data, 'smsassistent_api_username');
-		$this->loadData($data, 'smsassistent_api_token');
-		$this->loadData($data, 'smsassistent_api_password');
-		$this->loadData($data, 'smsassistent_sender_name');
-		$this->loadData($data, 'smsassistent_customer_order_create_status');
-		$this->loadData($data, 'smsassistent_customer_order_create_text');
-		$this->loadData($data, 'smsassistent_admin_order_create_status');
-		$this->loadData($data, 'smsassistent_admin_order_create_phones');
-		$this->loadData($data, 'smsassistent_admin_order_create_text');
+		$this->loadData($data, 'smsassistent_ms_status');
+		$this->loadData($data, 'smsassistent_ms_api_username');
+		$this->loadData($data, 'smsassistent_ms_api_token');
+		$this->loadData($data, 'smsassistent_ms_api_password');
+		$this->loadData($data, 'smsassistent_ms_sender_name');
+		$this->loadData($data, 'smsassistent_naco_customer_status');
+		$this->loadData($data, 'smsassistent_naco_customer_text');
+		$this->loadData($data, 'smsassistent_naco_admin_status');
+		$this->loadData($data, 'smsassistent_naco_admin_phones');
+		$this->loadData($data, 'smsassistent_naco_admin_text');
 
 		$data['smsassistent_log'] = '';
 		$file = DIR_LOGS . 'smsassistent.log';
