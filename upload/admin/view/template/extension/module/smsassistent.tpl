@@ -26,9 +26,9 @@
       <div class="panel-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-smsassistent" class="form-horizontal">
           <ul class="col-sm-12 nav nav-tabs" id="settings-tabs">
-            <li class="active"><a href="#tab-main-settings" data-toggle="tab"><?php echo 'Основное'; ?></a></li>
-            <li><a href="#tab-notificataion-settings" data-toggle="tab"><?php echo 'Уведомления'; ?></a></li>
-            <li><a href="#tab-logs" data-toggle="tab"><?php echo 'Логи'; ?></a></li>
+            <li class="active"><a href="#tab-main-settings" data-toggle="tab"><?php echo $pane_main_settings; ?></a></li>
+            <li><a href="#tab-notificataion-settings" data-toggle="tab"><?php echo $pane_order_create; ?></a></li>
+            <li><a href="#tab-logs" data-toggle="tab"><?php echo $pane_logs; ?></a></li>
           </ul>
           <div class="col-sm-12 tab-content">
             <div class="tab-pane active" id="tab-main-settings">

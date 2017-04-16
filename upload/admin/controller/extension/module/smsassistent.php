@@ -25,6 +25,7 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 			$this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', 'SSL'));
 		}
 
+		// Heading
 		$data['heading_title'] = $this->language->get('heading_title');		
 		$data['text_edit'] = $this->language->get('text_edit');
 		$data['text_yes'] = $this->language->get('text_yes');
@@ -34,12 +35,17 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
 
+		// Main settings
+		$data['pane_main_settings'] = $this->language->get('pane_main_settings');
 		$data['text_general'] = $this->language->get('text_general');
 		$data['entry_status'] = $this->language->get('entry_status');
 		$data['entry_api_username'] = $this->language->get('entry_api_username');
 		$data['entry_api_token'] = $this->language->get('entry_api_token');
 		$data['entry_api_password'] = $this->language->get('entry_api_password');
 		$data['entry_sender_name'] = $this->language->get('entry_sender_name');
+
+		// Notifications after create order
+		$data['pane_order_create'] = $this->language->get('pane_order_create');
 		$data['text_customer_order_create'] = $this->language->get('text_customer_order_create');
 		$data['entry_customer_order_create_status'] = $this->language->get('entry_customer_order_create_status');
 		$data['entry_customer_order_create_text'] = $this->language->get('entry_customer_order_create_text');
@@ -48,13 +54,13 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 		$data['entry_admin_order_create_phones'] = $this->language->get('entry_admin_order_create_phones');
 		$data['help_admin_order_create_phones'] = $this->language->get('help_admin_order_create_phones');
 		$data['entry_admin_order_create_text'] = $this->language->get('entry_admin_order_create_text');
-		$data['text_logs'] = $this->language->get('text_logs');
-		$data['pane_main_settings'] = $this->language->get('pane_main_settings');
-		$data['pane_notification_settings'] = $this->language->get('pane_notification_settings');
-		$data['pane_logs'] = $this->language->get('pane_logs');
 		$data['pane_sms_text'] = $this->language->get('pane_sms_text');
 		$data['pane_sms_template'] = $this->language->get('pane_sms_template');
 		$data['pane_sms_template_text'] = $this->language->get('pane_sms_template_text');
+
+		// Logs
+		$data['pane_logs'] = $this->language->get('pane_logs');
+		$data['text_logs'] = $this->language->get('text_logs');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
