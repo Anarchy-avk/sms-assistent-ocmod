@@ -75,10 +75,7 @@ class SMSAssistent{
 
 	}
 
-	public function sendCustomerNotification($order_info, $order_product_query, $currency) {
-
-		$phone = $order_info['telephone'];
-		$messageText = $this->prepareMessage($this->config->get('smsassistent_naco_customer_text'), $order_info, $order_product_query, $currency);
+	private function sendMessage($phone, $messageText) {
 		try {
 			$this->client->sendMessage($phone, $messageText);
 		} catch (Exceptions\LowBalanceException $e) {
@@ -108,55 +105,70 @@ class SMSAssistent{
 		} catch (Exceptions\SendTimeException $e) {
 			$this->logger->write('Catch exception: SendTimeException (Code: -15)');
 		}
+	}
+
+	private function sendMessages ($messages, $default) {
+		try {
+			$this->client->sendMessages($messages, $default);
+		} catch (Exceptions\LowBalanceException $e) {
+			$this->logger->write('Catch exception: LowBalanceException (Code: -1)');
+		} catch (Exceptions\AuthentificationException $e) {
+			$this->logger->write('Catch exception: AuthentificationException (Code: -2)');
+		} catch (Exceptions\MessageTextException $e) {
+			$this->logger->write('Catch exception: MessageTextException (Code: -3)');
+		} catch (Exceptions\PhoneNumberException $e) {
+			$this->logger->write('Catch exception: PhoneNumberException (Code: -4)');
+		} catch (Exceptions\SenderNameException $e) {
+			$this->logger->write('Catch exception: SenderNameException (Code: -5)');
+		} catch (Exceptions\AuthentificationException $e) {
+			$this->logger->write('Catch exception: AuthentificationException (Code: -6)');
+		} catch (Exceptions\AuthentificationException $e) {
+			$this->logger->write('Catch exception: AuthentificationException (Code: -7)');
+		} catch (Exceptions\ServerException $e) {
+			$this->logger->write('Catch exception: ServerException (Code: -10)');
+		} catch (Exceptions\MessageIdException $e) {
+			$this->logger->write('Catch exception: MessageIdException (Code: -11)');
+		} catch (Exceptions\ServerException $e) {
+			$this->logger->write('Catch exception: ServerException (Code: -12)');
+		} catch (Exceptions\ServerException $e) {
+			$this->logger->write('Catch exception: ServerException (Code: -13)');
+		} catch (Exceptions\SendTimeException $e) {
+			$this->logger->write('Catch exception: SendTimeException (Code: -14)');
+		} catch (Exceptions\SendTimeException $e) {
+			$this->logger->write('Catch exception: SendTimeException (Code: -15)');
+		}
+	}
+
+	public function nacoCustomerNotification($order_info, $order_product_query, $currency) {
+
+		$phone = $order_info['telephone'];
+		$messageText = $this->prepareMessage($this->config->get('smsassistent_naco_customer_text'), $order_info, $order_product_query, $currency);
+
+		$this->sendMessage($phone, $messageText);
 
 	}
 
-	public function sendAdminNotification($order_info, $order_product_query, $currency) {
+	public function nacoAdminNotification($order_info, $order_product_query, $currency) {
 
 		$phones = explode(';', $this->config->get('smsassistent_naco_admin_phones'));
 
 		if (count($phones) > 0) {
-
 			$messageText = $this->prepareMessage($this->config->get('smsassistent_naco_admin_text'), $order_info, $order_product_query, $currency);
-			$default = [
-				'text' => $messageText
-			];
 
-			$messages = [];
-			foreach ($phones as $phone) {
-				$messages[] = [
-					'phone' => $phone
+			if (count($phones) === 1) {
+				$this->sendMessage($phones[0], $messageText);
+			} else {
+				$default = [
+					'text' => $messageText
 				];
-			}
 
-			try {
-				$this->client->sendMessages($messages, $default);
-			} catch (Exceptions\LowBalanceException $e) {
-				$this->logger->write('Catch exception: LowBalanceException (Code: -1)');
-			} catch (Exceptions\AuthentificationException $e) {
-				$this->logger->write('Catch exception: AuthentificationException (Code: -2)');
-			} catch (Exceptions\MessageTextException $e) {
-				$this->logger->write('Catch exception: MessageTextException (Code: -3)');
-			} catch (Exceptions\PhoneNumberException $e) {
-				$this->logger->write('Catch exception: PhoneNumberException (Code: -4)');
-			} catch (Exceptions\SenderNameException $e) {
-				$this->logger->write('Catch exception: SenderNameException (Code: -5)');
-			} catch (Exceptions\AuthentificationException $e) {
-				$this->logger->write('Catch exception: AuthentificationException (Code: -6)');
-			} catch (Exceptions\AuthentificationException $e) {
-				$this->logger->write('Catch exception: AuthentificationException (Code: -7)');
-			} catch (Exceptions\ServerException $e) {
-				$this->logger->write('Catch exception: ServerException (Code: -10)');
-			} catch (Exceptions\MessageIdException $e) {
-				$this->logger->write('Catch exception: MessageIdException (Code: -11)');
-			} catch (Exceptions\ServerException $e) {
-				$this->logger->write('Catch exception: ServerException (Code: -12)');
-			} catch (Exceptions\ServerException $e) {
-				$this->logger->write('Catch exception: ServerException (Code: -13)');
-			} catch (Exceptions\SendTimeException $e) {
-				$this->logger->write('Catch exception: SendTimeException (Code: -14)');
-			} catch (Exceptions\SendTimeException $e) {
-				$this->logger->write('Catch exception: SendTimeException (Code: -15)');
+				$messages = [];
+				foreach ($phones as $phone) {
+					$messages[] = [
+						'phone' => $phone
+					];
+				}
+				$this->sendMessages($messages, $default);
 			}
 		}
 	}
