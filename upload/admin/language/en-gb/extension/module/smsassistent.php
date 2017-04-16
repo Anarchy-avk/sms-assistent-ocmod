@@ -6,28 +6,28 @@ $_['text_module']	= 'Modules';
 $_['text_success']	= 'Success: You have modified SMS-Assistent module!';
 $_['text_edit']		= 'Edit SMS-Assistent Module';
 
-// Main settings
-$_['pane_main_settings']	= 'Settings';
-$_['text_general']			= 'Main';
-$_['entry_status']     		= 'Status';
-$_['entry_api_username']	= 'API username';
-$_['entry_api_token']		= 'Token';
-$_['entry_api_password']	= 'or Password';
-$_['entry_sender_name']		= 'Sender by default';
+// Main settings (ms)
+$_['pane_ms']				= 'Settings';
+$_['text_ms_general']		= 'Main';
+$_['entry_ms_status']     	= 'Status';
+$_['entry_ms_api_username']	= 'API username';
+$_['entry_ms_api_token']	= 'Token';
+$_['entry_ms_api_password']	= 'or Password';
+$_['entry_ms_sender_name']	= 'Sender by default';
 
-// Notifications after create order
-$_['pane_order_create']						= 'New order';
-$_['text_customer_order_create']			= 'Send notification to customer';
-$_['entry_customer_order_create_status']	= 'Status';
-$_['entry_customer_order_create_text']		= 'Template of SMS notification';
-$_['text_admin_order_create']				= 'Send notification to managers';
-$_['entry_admin_order_create_status']		= 'Status';
-$_['entry_admin_order_create_phones']		= 'Phone numbers';
-$_['help_admin_order_create_phones']		= 'Phone numbers are listed through ;';
-$_['entry_admin_order_create_text']			= 'Template of SMS notification';
-$_['pane_sms_text']							= 'SMS message';
-$_['pane_sms_template']						= 'Tags';
-$_['pane_sms_template_text'] = <<<TEMPLATE_TEXT
+// Notifications after create order (naco)
+$_['pane_naco']						= 'New order';
+$_['text_naco_customer']			= 'Send notification to customer';
+$_['entry_naco_customer_status']	= 'Status';
+$_['entry_naco_customer_text']		= 'Template of SMS notification';
+$_['text_naco_admin']				= 'Send notification to managers';
+$_['entry_naco_admin_status']		= 'Status';
+$_['entry_naco_admin_phones']		= 'Phone numbers';
+$_['help_naco_admin_phones']		= 'Phone numbers are listed through ;';
+$_['entry_naco_admin_text']			= 'Template of SMS notification';
+$_['pane_naco_sms_text']			= 'SMS message';
+$_['pane_naco_sms_template']		= 'Tags';
+$_['pane_naco_sms_template_text'] 	= <<<TEMPLATE_TEXT
 <strong>{store_name}</strong> - Name of the shop;</br>
 <strong>{store_url}</strong> - URL of the shop;</br>
 <strong>{order_id}</strong> - Number of order;</br>
@@ -44,7 +44,7 @@ $_['pane_sms_template_text'] = <<<TEMPLATE_TEXT
 <strong>{products_names_prices}</strong> - Product names and prices separated by commas
 TEMPLATE_TEXT;
 
-// Logs
+// Logs (logs)
 $_['pane_logs']	= 'Logs';
 $_['text_logs']	= 'Error and notification log';
 

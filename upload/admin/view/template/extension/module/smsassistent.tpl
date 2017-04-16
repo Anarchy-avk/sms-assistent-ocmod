@@ -26,18 +26,18 @@
       <div class="panel-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-smsassistent" class="form-horizontal">
           <ul class="col-sm-12 nav nav-tabs" id="settings-tabs">
-            <li class="active"><a href="#tab-main-settings" data-toggle="tab"><?php echo $pane_main_settings; ?></a></li>
-            <li><a href="#tab-notificataion-settings" data-toggle="tab"><?php echo $pane_order_create; ?></a></li>
+            <li class="active"><a href="#tab-ms" data-toggle="tab"><?php echo $pane_ms; ?></a></li>
+            <li><a href="#tab-naco" data-toggle="tab"><?php echo $pane_naco; ?></a></li>
             <li><a href="#tab-logs" data-toggle="tab"><?php echo $pane_logs; ?></a></li>
           </ul>
           <div class="col-sm-12 tab-content">
-            <div class="tab-pane active" id="tab-main-settings">
+            <div class="tab-pane active" id="tab-ms">
               <fieldset>
-                <legend><?php echo $text_general; ?></legend>
+                <legend><?php echo $text_ms_general; ?></legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
+                  <label class="col-sm-2 control-label" for="input-ms-status"><?php echo $entry_ms_status; ?></label>
                   <div class="col-sm-10">
-                    <select name="smsassistent_status" id="input-status" class="form-control">
+                    <select name="smsassistent_status" id="input-ms-status" class="form-control">
                       <?php if ($smsassistent_status) { ?>
                       <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
                       <option value="0"><?php echo $text_disabled; ?></option>
@@ -49,38 +49,38 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-api-username"><?php echo $entry_api_username; ?></label>
+                  <label class="col-sm-2 control-label" for="input-ms-api-username"><?php echo $entry_ms_api_username; ?></label>
                   <div class="col-sm-10">
-                    <input type="text" name="smsassistent_api_username" value="<?php echo $smsassistent_api_username; ?>" placeholder="<?php echo $entry_api_username; ?>" id="input-api-username" class="form-control" />
+                    <input type="text" name="smsassistent_api_username" value="<?php echo $smsassistent_api_username; ?>" placeholder="<?php echo $entry_ms_api_username; ?>" id="input-ms-api-username" class="form-control" />
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-api-token"><?php echo $entry_api_token; ?></label>
+                  <label class="col-sm-2 control-label" for="input-ms-api-token"><?php echo $entry_ms_api_token; ?></label>
                   <div class="col-sm-10">
-                    <input type="text" name="smsassistent_api_token" value="<?php echo $smsassistent_api_token; ?>" placeholder="<?php echo $entry_api_token; ?>" id="input-api-token" class="form-control" />
+                    <input type="text" name="smsassistent_api_token" value="<?php echo $smsassistent_api_token; ?>" placeholder="<?php echo $entry_ms_api_token; ?>" id="input-ms-api-token" class="form-control" />
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-api-password"><?php echo $entry_api_password; ?></label>
+                  <label class="col-sm-2 control-label" for="input-ms-api-password"><?php echo $entry_ms_api_password; ?></label>
                   <div class="col-sm-10">
-                    <input type="text" name="smsassistent_api_password" value="<?php echo $smsassistent_api_password; ?>" placeholder="<?php echo $entry_api_password; ?>" id="input-api-password" class="form-control" />
+                    <input type="text" name="smsassistent_api_password" value="<?php echo $smsassistent_api_password; ?>" placeholder="<?php echo $entry_ms_api_password; ?>" id="input-ms-api-password" class="form-control" />
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-sender-name"><?php echo $entry_sender_name; ?></label>
+                  <label class="col-sm-2 control-label" for="input-ms-sender-name"><?php echo $entry_ms_sender_name; ?></label>
                   <div class="col-sm-10">
-                    <input type="text" name="smsassistent_sender_name" value="<?php echo $smsassistent_sender_name; ?>" placeholder="<?php echo $entry_sender_name; ?>" id="input-sender-name" class="form-control" />
+                    <input type="text" name="smsassistent_sender_name" value="<?php echo $smsassistent_sender_name; ?>" placeholder="<?php echo $entry_ms_sender_name; ?>" id="input-ms-sender-name" class="form-control" />
                   </div>
                 </div>
               </fieldset>
             </div>
-            <div class="tab-pane" id="tab-notificataion-settings">
+            <div class="tab-pane" id="tab-naco">
               <fieldset>
-                <legend><?php echo $text_customer_order_create; ?></legend>
+                <legend><?php echo $text_naco_customer; ?></legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-customer-order-create-status"><?php echo $entry_customer_order_create_status; ?></label>
+                  <label class="col-sm-2 control-label" for="input-naco-customer-status"><?php echo $entry_naco_customer_status; ?></label>
                   <div class="col-sm-10">
-                    <select name="smsassistent_customer_order_create_status" id="input-customer-order-create-status" class="form-control">
+                    <select name="smsassistent_customer_order_create_status" id="input-naco-customer-status" class="form-control">
                       <?php if ($smsassistent_customer_order_create_status) { ?>
                       <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
                       <option value="0"><?php echo $text_disabled; ?></option>
@@ -92,29 +92,29 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-customer-order-create-text"><?php echo $entry_customer_order_create_text; ?></label>
-                  <ul class="col-sm-10 nav nav-tabs" id="customer-order-create-text">
-                    <li class="active"><a href="#tab-customer-order-create-text" data-toggle="tab"><?php echo $pane_sms_text; ?></a></li>
-                    <li><a href="#tab-customer-order-create-template" data-toggle="tab"><?php echo $pane_sms_template; ?></a></li>
+                  <label class="col-sm-2 control-label" for="input-naco-customer-text"><?php echo $entry_naco_customer_text; ?></label>
+                  <ul class="col-sm-10 nav nav-tabs">
+                    <li class="active"><a href="#tab-naco-customer-text" data-toggle="tab"><?php echo $pane_naco_sms_text; ?></a></li>
+                    <li><a href="#tab-naco-customer-template" data-toggle="tab"><?php echo $pane_naco_sms_template; ?></a></li>
                   </ul>
                   <div class="col-sm-2">
                   </div>
                   <div class="col-sm-10 tab-content">
-                    <div class="tab-pane active" id="tab-customer-order-create-text">
-                      <textarea name="smsassistent_customer_order_create_text" rows="5" placeholder="<?php echo $smsassistent_customer_order_create_text; ?>" id="input-customer-order-create-text" class="form-control"><?php echo $smsassistent_customer_order_create_text; ?></textarea>
+                    <div class="tab-pane active" id="tab-naco-customer-text">
+                      <textarea name="smsassistent_customer_order_create_text" rows="5" placeholder="<?php echo $entry_naco_customer_text; ?>" id="input-naco-customer-text" class="form-control"><?php echo $smsassistent_customer_order_create_text; ?></textarea>
                     </div>
-                    <div class="tab-pane" id="tab-customer-order-create-template">
-                      <p><?php echo $pane_sms_template_text; ?></p>
+                    <div class="tab-pane" id="tab-naco-customer-template">
+                      <p><?php echo $pane_naco_sms_template_text; ?></p>
                     </div>
                   </div>
                 </div>
               </fieldset>
               <fieldset>
-                <legend><?php echo $text_admin_order_create; ?></legend>
+                <legend><?php echo $text_naco_admin; ?></legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-admin-order-create-status"><?php echo $entry_admin_order_create_status; ?></label>
+                  <label class="col-sm-2 control-label" for="input-naco-admin-status"><?php echo $entry_naco_admin_status; ?></label>
                   <div class="col-sm-10">
-                    <select name="smsassistent_admin_order_create_status" id="input-admin-order-create-status" class="form-control">
+                    <select name="smsassistent_admin_order_create_status" id="input-naco-admin-status" class="form-control">
                       <?php if ($smsassistent_admin_order_create_status) { ?>
                       <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
                       <option value="0"><?php echo $text_disabled; ?></option>
@@ -126,25 +126,25 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-admin-order-create-phones"><span data-toggle="tooltip" title="<?php echo $help_admin_order_create_phones; ?>"><?php echo $entry_admin_order_create_phones; ?></label>
+                  <label class="col-sm-2 control-label" for="input-naco-admin-phones"><span data-toggle="tooltip" title="<?php echo $help_naco_admin_phones; ?>"><?php echo $entry_naco_admin_phones; ?></label>
                   <div class="col-sm-10">
-                    <input type="text" name="smsassistent_admin_order_create_phones" value="<?php echo $smsassistent_admin_order_create_phones; ?>" placeholder="<?php echo $smsassistent_admin_order_create_phones; ?>" id="input-admin-order-create-phones" class="form-control" />
+                    <input type="text" name="smsassistent_admin_order_create_phones" value="<?php echo $smsassistent_admin_order_create_phones; ?>" placeholder="<?php echo $entry_naco_admin_phones; ?>" id="input-naco-admin-phones" class="form-control" />
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-admin-order-create-text"><?php echo $entry_admin_order_create_text; ?></label>
-                  <ul class="col-sm-10 nav nav-tabs" id="admin-order-create-text">
-                    <li class="active"><a href="#tab-admin-order-create-text" data-toggle="tab"><?php echo $pane_sms_text; ?></a></li>
-                    <li><a href="#tab-admin-order-create-template" data-toggle="tab"><?php echo $pane_sms_template; ?></a></li>
+                  <label class="col-sm-2 control-label" for="input-naco-admin-text"><?php echo $entry_naco_admin_text; ?></label>
+                  <ul class="col-sm-10 nav nav-tabs">
+                    <li class="active"><a href="#tab-naco-admin-text" data-toggle="tab"><?php echo $pane_naco_sms_text; ?></a></li>
+                    <li><a href="#tab-naco-admin-template" data-toggle="tab"><?php echo $pane_naco_sms_template; ?></a></li>
                   </ul>
                   <div class="col-sm-2">
                   </div>
                   <div class="col-sm-10 tab-content">
-                    <div class="tab-pane active" id="tab-admin-order-create-text">
-                      <textarea name="smsassistent_admin_order_create_text" rows="5" placeholder="<?php echo $smsassistent_admin_order_create_text; ?>" id="input-admin-order-create-text" class="form-control"><?php echo $smsassistent_admin_order_create_text; ?></textarea>
+                    <div class="tab-pane active" id="tab-naco-admin-text">
+                      <textarea name="smsassistent_admin_order_create_text" rows="5" placeholder="<?php echo $entry_naco_admin_text; ?>" id="input-naco-admin-text" class="form-control"><?php echo $smsassistent_admin_order_create_text; ?></textarea>
                     </div>
-                    <div class="tab-pane" id="tab-admin-order-create-template">
-                      <p><?php echo $pane_sms_template_text; ?></p>
+                    <div class="tab-pane" id="tab-naco-admin-template">
+                      <p><?php echo $pane_naco_sms_template_text; ?></p>
                     </div>
                   </div>
                 </div>

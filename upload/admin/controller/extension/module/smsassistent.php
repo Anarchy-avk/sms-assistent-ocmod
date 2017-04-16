@@ -35,30 +35,30 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
 
-		// Main settings
-		$data['pane_main_settings'] = $this->language->get('pane_main_settings');
-		$data['text_general'] = $this->language->get('text_general');
-		$data['entry_status'] = $this->language->get('entry_status');
-		$data['entry_api_username'] = $this->language->get('entry_api_username');
-		$data['entry_api_token'] = $this->language->get('entry_api_token');
-		$data['entry_api_password'] = $this->language->get('entry_api_password');
-		$data['entry_sender_name'] = $this->language->get('entry_sender_name');
+		// Main settings (ms)
+		$data['pane_ms'] = $this->language->get('pane_ms');
+		$data['text_ms_general'] = $this->language->get('text_ms_general');
+		$data['entry_ms_status'] = $this->language->get('entry_ms_status');
+		$data['entry_ms_api_username'] = $this->language->get('entry_ms_api_username');
+		$data['entry_ms_api_token'] = $this->language->get('entry_ms_api_token');
+		$data['entry_ms_api_password'] = $this->language->get('entry_ms_api_password');
+		$data['entry_ms_sender_name'] = $this->language->get('entry_ms_sender_name');
 
-		// Notifications after create order
-		$data['pane_order_create'] = $this->language->get('pane_order_create');
-		$data['text_customer_order_create'] = $this->language->get('text_customer_order_create');
-		$data['entry_customer_order_create_status'] = $this->language->get('entry_customer_order_create_status');
-		$data['entry_customer_order_create_text'] = $this->language->get('entry_customer_order_create_text');
-		$data['text_admin_order_create'] = $this->language->get('text_admin_order_create');
-		$data['entry_admin_order_create_status'] = $this->language->get('entry_admin_order_create_status');
-		$data['entry_admin_order_create_phones'] = $this->language->get('entry_admin_order_create_phones');
-		$data['help_admin_order_create_phones'] = $this->language->get('help_admin_order_create_phones');
-		$data['entry_admin_order_create_text'] = $this->language->get('entry_admin_order_create_text');
-		$data['pane_sms_text'] = $this->language->get('pane_sms_text');
-		$data['pane_sms_template'] = $this->language->get('pane_sms_template');
-		$data['pane_sms_template_text'] = $this->language->get('pane_sms_template_text');
+		// Notifications after create order (naco)
+		$data['pane_naco'] = $this->language->get('pane_naco');
+		$data['text_naco_customer'] = $this->language->get('text_naco_customer');
+		$data['entry_naco_customer_status'] = $this->language->get('entry_naco_customer_status');
+		$data['entry_naco_customer_text'] = $this->language->get('entry_naco_customer_text');
+		$data['text_naco_admin'] = $this->language->get('text_naco_admin');
+		$data['entry_naco_admin_status'] = $this->language->get('entry_naco_admin_status');
+		$data['entry_naco_admin_phones'] = $this->language->get('entry_naco_admin_phones');
+		$data['help_naco_admin_phones'] = $this->language->get('help_naco_admin_phones');
+		$data['entry_naco_admin_text'] = $this->language->get('entry_naco_admin_text');
+		$data['pane_naco_sms_text'] = $this->language->get('pane_naco_sms_text');
+		$data['pane_naco_sms_template'] = $this->language->get('pane_naco_sms_template');
+		$data['pane_naco_sms_template_text'] = $this->language->get('pane_naco_sms_template_text');
 
-		// Logs
+		// Logs (logs)
 		$data['pane_logs'] = $this->language->get('pane_logs');
 		$data['text_logs'] = $this->language->get('text_logs');
 
