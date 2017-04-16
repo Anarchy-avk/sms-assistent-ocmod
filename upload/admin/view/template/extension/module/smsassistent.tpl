@@ -28,6 +28,7 @@
           <ul class="col-sm-12 nav nav-tabs" id="settings-tabs">
             <li class="active"><a href="#tab-ms" data-toggle="tab"><?php echo $pane_ms; ?></a></li>
             <li><a href="#tab-naco" data-toggle="tab"><?php echo $pane_naco; ?></a></li>
+            <li><a href="#tab-narc" data-toggle="tab"><?php echo $pane_narc; ?></a></li>
             <li><a href="#tab-logs" data-toggle="tab"><?php echo $pane_logs; ?></a></li>
           </ul>
           <div class="col-sm-12 tab-content">
@@ -145,6 +146,82 @@
                     </div>
                     <div class="tab-pane" id="tab-naco-admin-template">
                       <p><?php echo $pane_naco_sms_template_text; ?></p>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="tab-pane" id="tab-narc">
+              <fieldset>
+                <legend><?php echo $text_narc_customer; ?></legend>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-narc-customer-status"><?php echo $entry_narc_customer_status; ?></label>
+                  <div class="col-sm-10">
+                    <select name="smsassistent_narc_customer_status" id="input-narc-customer-status" class="form-control">
+                      <?php if ($smsassistent_narc_customer_status) { ?>
+                      <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                      <option value="0"><?php echo $text_disabled; ?></option>
+                      <?php } else { ?>
+                      <option value="1"><?php echo $text_enabled; ?></option>
+                      <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-narc-customer-text"><?php echo $entry_narc_customer_text; ?></label>
+                  <ul class="col-sm-10 nav nav-tabs">
+                    <li class="active"><a href="#tab-narc-customer-text" data-toggle="tab"><?php echo $pane_narc_sms_text; ?></a></li>
+                    <li><a href="#tab-narc-customer-template" data-toggle="tab"><?php echo $pane_narc_sms_template; ?></a></li>
+                  </ul>
+                  <div class="col-sm-2">
+                  </div>
+                  <div class="col-sm-10 tab-content">
+                    <div class="tab-pane active" id="tab-narc-customer-text">
+                      <textarea name="smsassistent_narc_customer_text" rows="5" placeholder="<?php echo $entry_narc_customer_text; ?>" id="input-narc-customer-text" class="form-control"><?php echo $smsassistent_narc_customer_text; ?></textarea>
+                    </div>
+                    <div class="tab-pane" id="tab-narc-customer-template">
+                      <p><?php echo $pane_narc_sms_template_text; ?></p>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend><?php echo $text_narc_admin; ?></legend>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-narc-admin-status"><?php echo $entry_narc_admin_status; ?></label>
+                  <div class="col-sm-10">
+                    <select name="smsassistent_narc_admin_status" id="input-narc-admin-status" class="form-control">
+                      <?php if ($smsassistent_narc_admin_status) { ?>
+                      <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                      <option value="0"><?php echo $text_disabled; ?></option>
+                      <?php } else { ?>
+                      <option value="1"><?php echo $text_enabled; ?></option>
+                      <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-narc-admin-phones"><span data-toggle="tooltip" title="<?php echo $help_narc_admin_phones; ?>"><?php echo $entry_narc_admin_phones; ?></label>
+                  <div class="col-sm-10">
+                    <input type="text" name="smsassistent_narc_admin_phones" value="<?php echo $smsassistent_narc_admin_phones; ?>" placeholder="<?php echo $entry_narc_admin_phones; ?>" id="input-narc-admin-phones" class="form-control" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-narc-admin-text"><?php echo $entry_narc_admin_text; ?></label>
+                  <ul class="col-sm-10 nav nav-tabs">
+                    <li class="active"><a href="#tab-narc-admin-text" data-toggle="tab"><?php echo $pane_narc_sms_text; ?></a></li>
+                    <li><a href="#tab-narc-admin-template" data-toggle="tab"><?php echo $pane_narc_sms_template; ?></a></li>
+                  </ul>
+                  <div class="col-sm-2">
+                  </div>
+                  <div class="col-sm-10 tab-content">
+                    <div class="tab-pane active" id="tab-narc-admin-text">
+                      <textarea name="smsassistent_narc_admin_text" rows="5" placeholder="<?php echo $entry_narc_admin_text; ?>" id="input-narc-admin-text" class="form-control"><?php echo $smsassistent_narc_admin_text; ?></textarea>
+                    </div>
+                    <div class="tab-pane" id="tab-narc-admin-template">
+                      <p><?php echo $pane_narc_sms_template_text; ?></p>
                     </div>
                   </div>
                 </div>

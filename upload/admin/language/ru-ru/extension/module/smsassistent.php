@@ -57,20 +57,16 @@ $_['entry_narc_admin_text']			= 'Шаблон SMS сообщения';
 $_['pane_narc_sms_text']			= 'Сообщение';
 $_['pane_narc_sms_template']		= 'Доступные тэги';
 $_['pane_narc_sms_template_text'] 	= <<<TEMPLATE_TEXT
-<strong>{store_name}</strong> - название магазина;</br>
-<strong>{store_url}</strong> - URL магазина;</br>
-<strong>{order_id}</strong> - номер заказа;</br>
-<strong>{date_added}</strong> - время создания;</br> 
-<strong>{payment_method}</strong> - способ оплаты;</br>
-<strong>{payment_code}</strong> - код оплаты;</br>
-<strong>{email}</strong> - EMail покупателя;</br>
-<strong>{telephone}</strong> - телефон покупателя;</br>
-<strong>{firstname}</strong> - фамилия покупателя;</br> 
-<strong>{lastname}</strong> - имя покупателя;</br>
-<strong>{total}</strong> - итого по заказу;</br>
-<strong>{products_ids}</strong> - идентификаторы товаров, перечисленные через запятую;</br> 
-<strong>{products_names}</strong> - названия товаров, перечисленные через запятую;</br> 
-<strong>{products_names_prices}</strong> - название и цена товаров, перечисленные через запятую
+<strong>{firstname}</strong> - Имя;</br>
+<strong>{lastname}</strong> - Фамилия;</br>
+<strong>{email}</strong> - Email;</br>
+<strong>{telephone}</strong> - Телефон;</br> 
+<strong>{fax}</strong> - Факс;</br>
+<strong>{company}</strong> - Место работы;</br>
+<strong>{address_1}</strong> - Адрес;</br>
+<strong>{address_2}</strong> - Адрес дополнительно;</br>
+<strong>{city}</strong> - Город;</br> 
+<strong>{postcode}</strong> - Почтовый индекс;
 TEMPLATE_TEXT;
 
 // Logs (logs)

@@ -57,20 +57,16 @@ $_['entry_narc_admin_text']			= 'Template of SMS notification';
 $_['pane_narc_sms_text']			= 'SMS message';
 $_['pane_narc_sms_template']		= 'Tags';
 $_['pane_narc_sms_template_text'] 	= <<<TEMPLATE_TEXT
-<strong>{store_name}</strong> - Name of the shop;</br>
-<strong>{store_url}</strong> - URL of the shop;</br>
-<strong>{order_id}</strong> - Number of order;</br>
-<strong>{date_added}</strong> - Create time;</br> 
-<strong>{payment_method}</strong> - Payment method;</br>
-<strong>{payment_code}</strong> - Payment code;</br>
-<strong>{email}</strong> - Customer EMail;</br>
-<strong>{telephone}</strong> - Customer phone;</br>
-<strong>{firstname}</strong> - Customer lastname;</br> 
-<strong>{lastname}</strong> - Customer firstname;</br>
-<strong>{total}</strong> - Order total;</br>
-<strong>{products_ids}</strong> - Product IDs separated by commas;</br> 
-<strong>{products_names}</strong> - Product names separated by commas;</br> 
-<strong>{products_names_prices}</strong> - Product names and prices separated by commas
+<strong>{firstname}</strong> - Firstname;</br>
+<strong>{lastname}</strong> - Lastname;</br>
+<strong>{email}</strong> - Email;</br>
+<strong>{telephone}</strong> - Phone;</br> 
+<strong>{fax}</strong> - Fax;</br>
+<strong>{company}</strong> - Company;</br>
+<strong>{address_1}</strong> - Address first line;</br>
+<strong>{address_2}</strong> - Address second line;</br>
+<strong>{city}</strong> - City;</br> 
+<strong>{postcode}</strong> - Postcode;
 TEMPLATE_TEXT;
 
 // Logs (logs)

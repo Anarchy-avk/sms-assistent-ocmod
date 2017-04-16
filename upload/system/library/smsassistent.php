@@ -38,7 +38,7 @@ class SMSAssistent{
 
 	}
 
-	private function prepareMessage($template, $order_info, $order_product_query, $currency) {
+	private function nacoPrepareMessage($template, $order_info, $order_product_query, $currency) {
 
 		$products_ids = '';
 		$products_names = '';
@@ -67,6 +67,27 @@ class SMSAssistent{
 			'{products_ids}'			=> $products_ids,
 			'{products_names}'			=> $products_names,
 			'{products_names_prices}'	=> $products_names_prices
+		);
+
+		$messageText = str_replace(array_keys($findReplace), array_values($findReplace), $template);
+
+		return $messageText;
+
+	}
+
+	private function narcPrepareMessage($template, $customer) {
+
+		$findReplace = array(
+			'{firstname}'	=> $customer['firstname'],
+			'{lastname}'	=> $customer['lastname'],
+			'{email}'		=> $customer['email'],
+			'{telephone}'	=> $customer['telephone'],
+			'{fax}'			=> $customer['fax'],
+			'{company}'		=> $customer['company'],
+			'{address_1}'	=> $customer['address_1'],
+			'{address_2}'	=> $customer['address_2'],
+			'{city}'		=> $customer['city'],
+			'{postcode}'	=> $customer['postcode']
 		);
 
 		$messageText = str_replace(array_keys($findReplace), array_values($findReplace), $template);
@@ -142,7 +163,7 @@ class SMSAssistent{
 	public function nacoCustomerNotification($order_info, $order_product_query, $currency) {
 
 		$phone = $order_info['telephone'];
-		$messageText = $this->prepareMessage($this->config->get('smsassistent_naco_customer_text'), $order_info, $order_product_query, $currency);
+		$messageText = $this->nacoPrepareMessage($this->config->get('smsassistent_naco_customer_text'), $order_info, $order_product_query, $currency);
 
 		$this->sendMessage($phone, $messageText);
 
@@ -153,7 +174,7 @@ class SMSAssistent{
 		$phones = explode(';', $this->config->get('smsassistent_naco_admin_phones'));
 
 		if (count($phones) > 0) {
-			$messageText = $this->prepareMessage($this->config->get('smsassistent_naco_admin_text'), $order_info, $order_product_query, $currency);
+			$messageText = $this->nacoPrepareMessage($this->config->get('smsassistent_naco_admin_text'), $order_info, $order_product_query, $currency);
 
 			if (count($phones) === 1) {
 				$this->sendMessage($phones[0], $messageText);
@@ -173,4 +194,35 @@ class SMSAssistent{
 		}
 	}
 
+	public function narcCustomerNotification($customer) {
+		$phone = $customer['telephone'];
+		$messageText = $this->narcPrepareMessage($this->config->get('smsassistent_narc_customer_text'), $customer);
+
+		$this->sendMessage($phone, $messageText);
+	}
+
+	public function narcAdminNotification($customer) {
+
+		$phones = explode(';', $this->config->get('smsassistent_narc_admin_phones'));
+
+		if (count($phones) > 0) {
+			$messageText = $this->narcPrepareMessage($this->config->get('smsassistent_narc_admin_text'), $customer);
+
+			if (count($phones) === 1) {
+				$this->sendMessage($phones[0], $messageText);
+			} else {
+				$default = [
+					'text' => $messageText
+				];
+
+				$messages = [];
+				foreach ($phones as $phone) {
+					$messages[] = [
+						'phone' => $phone
+					];
+				}
+				$this->sendMessages($messages, $default);
+			}
+		}
+	}
 }

@@ -113,6 +113,11 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 		$this->loadData($data, 'smsassistent_naco_admin_status');
 		$this->loadData($data, 'smsassistent_naco_admin_phones');
 		$this->loadData($data, 'smsassistent_naco_admin_text');
+		$this->loadData($data, 'smsassistent_narc_customer_status');
+		$this->loadData($data, 'smsassistent_narc_customer_text');
+		$this->loadData($data, 'smsassistent_narc_admin_status');
+		$this->loadData($data, 'smsassistent_narc_admin_phones');
+		$this->loadData($data, 'smsassistent_narc_admin_text');
 
 		$data['smsassistent_log'] = '';
 		$file = DIR_LOGS . 'smsassistent.log';
