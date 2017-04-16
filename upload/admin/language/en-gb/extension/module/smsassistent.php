@@ -67,6 +67,10 @@ $_['pane_narc_sms_template_text'] 	= <<<TEMPLATE_TEXT
 <strong>{address_2}</strong> - Address second line;</br>
 <strong>{city}</strong> - City;</br> 
 <strong>{postcode}</strong> - Postcode;
+<strong>{store_name}</strong> - Store name;
+<strong>{store_address}</strong> - Store address;
+<strong>{store_email}</strong> - Store Email;
+<strong>{store_phone}</strong> - Store phone;
 TEMPLATE_TEXT;
 
 // Logs (logs)

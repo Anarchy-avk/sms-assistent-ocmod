@@ -87,7 +87,11 @@ class SMSAssistent{
 			'{address_1}'	=> $customer['address_1'],
 			'{address_2}'	=> $customer['address_2'],
 			'{city}'		=> $customer['city'],
-			'{postcode}'	=> $customer['postcode']
+			'{postcode}'	=> $customer['postcode'],
+			'{store_name}'	=> $this->config->get('config_name'),
+			'{store_address}'	=> $this->config->get('config_address'),
+			'{store_email}'		=> $this->config->get('config_email'),
+			'{store_phone}'		=> $this->config->get('config_telephone')
 		);
 
 		$messageText = str_replace(array_keys($findReplace), array_values($findReplace), $template);
