@@ -104,31 +104,21 @@ class SMSAssistent{
 		try {
 			$this->client->sendMessage($phone, $messageText);
 		} catch (Exceptions\LowBalanceException $e) {
-			$this->logger->write('Catch exception: LowBalanceException (Code: -1)');
+			$this->logger->write("Catch exception: LowBalanceException (Code: -1)\n" . $e->getTraceAsString());
 		} catch (Exceptions\AuthentificationException $e) {
-			$this->logger->write('Catch exception: AuthentificationException (Code: -2)');
+			$this->logger->write("Catch exception: AuthentificationException (Codes: -2, -6, -7)\n" . $e->getTraceAsString());
 		} catch (Exceptions\MessageTextException $e) {
-			$this->logger->write('Catch exception: MessageTextException (Code: -3)');
+			$this->logger->write("Catch exception: MessageTextException (Code: -3)\n" . $e->getTraceAsString());
 		} catch (Exceptions\PhoneNumberException $e) {
-			$this->logger->write('Catch exception: PhoneNumberException (Code: -4)');
+			$this->logger->write("Catch exception: PhoneNumberException (Code: -4)\n" . $e->getTraceAsString());
 		} catch (Exceptions\SenderNameException $e) {
-			$this->logger->write('Catch exception: SenderNameException (Code: -5)');
-		} catch (Exceptions\AuthentificationException $e) {
-			$this->logger->write('Catch exception: AuthentificationException (Code: -6)');
-		} catch (Exceptions\AuthentificationException $e) {
-			$this->logger->write('Catch exception: AuthentificationException (Code: -7)');
+			$this->logger->write("Catch exception: SenderNameException (Code: -5)\n" . $e->getTraceAsString());
 		} catch (Exceptions\ServerException $e) {
-			$this->logger->write('Catch exception: ServerException (Code: -10)');
+			$this->logger->write("Catch exception: ServerException (Code: -10, -12, -13)\n" . $e->getTraceAsString());
 		} catch (Exceptions\MessageIdException $e) {
-			$this->logger->write('Catch exception: MessageIdException (Code: -11)');
-		} catch (Exceptions\ServerException $e) {
-			$this->logger->write('Catch exception: ServerException (Code: -12)');
-		} catch (Exceptions\ServerException $e) {
-			$this->logger->write('Catch exception: ServerException (Code: -13)');
+			$this->logger->write("Catch exception: MessageIdException (Code: -11)\n" . $e->getTraceAsString());
 		} catch (Exceptions\SendTimeException $e) {
-			$this->logger->write('Catch exception: SendTimeException (Code: -14)');
-		} catch (Exceptions\SendTimeException $e) {
-			$this->logger->write('Catch exception: SendTimeException (Code: -15)');
+			$this->logger->write("Catch exception: SendTimeException (Code: -14, -15)\n" . $e->getTraceAsString());
 		}
 	}
 
@@ -136,31 +126,21 @@ class SMSAssistent{
 		try {
 			$this->client->sendMessages($messages, $default);
 		} catch (Exceptions\LowBalanceException $e) {
-			$this->logger->write('Catch exception: LowBalanceException (Code: -1)');
+			$this->logger->write("Catch exception: LowBalanceException (Code: -1)\n" . $e->getTraceAsString());
 		} catch (Exceptions\AuthentificationException $e) {
-			$this->logger->write('Catch exception: AuthentificationException (Code: -2)');
+			$this->logger->write("Catch exception: AuthentificationException (Code: -2, -6, -7)\n" . $e->getTraceAsString());
 		} catch (Exceptions\MessageTextException $e) {
-			$this->logger->write('Catch exception: MessageTextException (Code: -3)');
+			$this->logger->write("Catch exception: MessageTextException (Code: -3)\n" . $e->getTraceAsString());
 		} catch (Exceptions\PhoneNumberException $e) {
-			$this->logger->write('Catch exception: PhoneNumberException (Code: -4)');
+			$this->logger->write("Catch exception: PhoneNumberException (Code: -4)\n" . $e->getTraceAsString());
 		} catch (Exceptions\SenderNameException $e) {
-			$this->logger->write('Catch exception: SenderNameException (Code: -5)');
-		} catch (Exceptions\AuthentificationException $e) {
-			$this->logger->write('Catch exception: AuthentificationException (Code: -6)');
-		} catch (Exceptions\AuthentificationException $e) {
-			$this->logger->write('Catch exception: AuthentificationException (Code: -7)');
+			$this->logger->write("Catch exception: SenderNameException (Code: -5)\n" . $e->getTraceAsString());
 		} catch (Exceptions\ServerException $e) {
-			$this->logger->write('Catch exception: ServerException (Code: -10)');
+			$this->logger->write("Catch exception: ServerException (Code: -10, -12, -13)\n" . $e->getTraceAsString());
 		} catch (Exceptions\MessageIdException $e) {
-			$this->logger->write('Catch exception: MessageIdException (Code: -11)');
-		} catch (Exceptions\ServerException $e) {
-			$this->logger->write('Catch exception: ServerException (Code: -12)');
-		} catch (Exceptions\ServerException $e) {
-			$this->logger->write('Catch exception: ServerException (Code: -13)');
+			$this->logger->write("Catch exception: MessageIdException (Code: -11)\n" . $e->getTraceAsString());
 		} catch (Exceptions\SendTimeException $e) {
-			$this->logger->write('Catch exception: SendTimeException (Code: -14)');
-		} catch (Exceptions\SendTimeException $e) {
-			$this->logger->write('Catch exception: SendTimeException (Code: -15)');
+			$this->logger->write("Catch exception: SendTimeException (Code: -14, -15)\n" . $e->getTraceAsString());
 		}
 	}
 
