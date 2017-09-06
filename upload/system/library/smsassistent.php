@@ -1,6 +1,6 @@
 <?php
 
-require 'smsassistent/vendor/autoload.php';
+require DIR_SYSTEM . 'library/smsassistent/vendor/autoload.php';
 
 use ByZer0\SmsAssistantBy\Client;
 use ByZer0\SmsAssistantBy\Http\GuzzleClient;
