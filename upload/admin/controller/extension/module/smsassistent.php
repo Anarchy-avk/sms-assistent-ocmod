@@ -1,6 +1,21 @@
 <?php
+
 class ControllerExtensionModuleSMSAssistent extends Controller {
 	private $error = array();
+
+	public function install() {
+        $this->db->query("
+            CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "smsassistent_send_log` (
+                `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+                `type` ENUM('new_order','new_customer') NOT NULL DEFAULT 'new_order',
+                `related_id` INT(11) NOT NULL,
+                `notificate` ENUM('admin','customer') NOT NULL DEFAULT 'admin',
+                `created_at` DATETIME NOT NULL,
+                PRIMARY KEY (`id`),
+                KEY `related_id` (`related_id`)
+            )
+        ");
+    }
 
 	private function loadData(&$data, $data_name) {
 		if (isset($this->request->post[$data_name])) {
