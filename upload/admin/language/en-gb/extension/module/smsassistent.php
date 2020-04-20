@@ -9,19 +9,20 @@ $_['text_edit']		= 'Edit SMS-Assistent Module';
 // Main settings (ms)
 $_['pane_ms']				= 'Settings';
 $_['text_ms_general']		= 'Main';
-$_['entry_ms_status']     	= 'Status';
+$_['entry_ms_status']     	= 'Active';
 $_['entry_ms_api_username']	= 'API username';
 $_['entry_ms_api_token']	= 'Token';
 $_['entry_ms_api_password']	= 'or Password';
 $_['entry_ms_sender_name']	= 'Sender by default';
 
 // Notifications after create order (naco)
-$_['pane_naco']						= 'New order';
+$_['pane_naco']						= 'New order status';
+$_['text_naco_order_status']		= 'Send notification when status changed';
 $_['text_naco_customer']			= 'Send notification to customer';
-$_['entry_naco_customer_status']	= 'Status';
+$_['entry_naco_customer_status']	= 'Active';
 $_['entry_naco_customer_text']		= 'Template of SMS notification';
 $_['text_naco_admin']				= 'Send notification to managers';
-$_['entry_naco_admin_status']		= 'Status';
+$_['entry_naco_admin_status']		= 'Active';
 $_['entry_naco_admin_phones']		= 'Phone numbers';
 $_['help_naco_admin_phones']		= 'Phone numbers are listed through ;';
 $_['entry_naco_admin_text']			= 'Template of SMS notification';
@@ -47,10 +48,10 @@ TEMPLATE_TEXT;
 // Notifications after register customer (narc)
 $_['pane_narc']						= 'New customer';
 $_['text_narc_customer']			= 'Send notification to customer';
-$_['entry_narc_customer_status']	= 'Status';
+$_['entry_narc_customer_status']	= 'Active';
 $_['entry_narc_customer_text']		= 'Template of SMS notification';
 $_['text_narc_admin']				= 'Send notification to managers';
-$_['entry_narc_admin_status']		= 'Status';
+$_['entry_narc_admin_status']		= 'Active';
 $_['entry_narc_admin_phones']		= 'Phone numbers';
 $_['help_narc_admin_phones']		= 'Phone numbers are listed through ;';
 $_['entry_narc_admin_text']			= 'Template of SMS notification';

@@ -9,19 +9,20 @@ $_['text_edit']		= 'Настройки модуля';
 // Main settings (ms)
 $_['pane_ms']				= 'Настройки';
 $_['text_ms_general']		= 'Основное';
-$_['entry_ms_status']		= 'Статус';
+$_['entry_ms_status']		= 'Активен';
 $_['entry_ms_api_username']	= 'Имя пользователя';
 $_['entry_ms_api_token']	= 'Токен';
 $_['entry_ms_api_password']	= 'или Пароль';
 $_['entry_ms_sender_name']	= 'Отправитель по-умолчанию';
 
-// Notifications after create order (naco)
-$_['pane_naco']						= 'Новый заказ';
+// Notifications after change order status (naco)
+$_['pane_naco']						= 'Новый статус заказа';
+$_['text_naco_order_status']		= 'Отправлять уведомления при изменении статуса';
 $_['text_naco_customer']			= 'Уведомление пользователю';
-$_['entry_naco_customer_status']	= 'Статус';
+$_['entry_naco_customer_status']	= 'Активен';
 $_['entry_naco_customer_text']		= 'Шаблон SMS сообщения';
 $_['text_naco_admin']				= 'Уведомление менеджерам';
-$_['entry_naco_admin_status']		= 'Статус';
+$_['entry_naco_admin_status']		= 'Активен';
 $_['entry_naco_admin_phones']		= 'Номера телефонов';
 $_['help_naco_admin_phones']		= 'Номера телефонов перечисляются через ;';
 $_['entry_naco_admin_text']			= 'Шаблон SMS сообщения';
@@ -47,10 +48,10 @@ TEMPLATE_TEXT;
 // Notifications after register customer (narc)
 $_['pane_narc']						= 'Новый пользователь';
 $_['text_narc_customer']			= 'Уведомление пользователю';
-$_['entry_narc_customer_status']	= 'Статус';
+$_['entry_narc_customer_status']	= 'Активен';
 $_['entry_narc_customer_text']		= 'Шаблон SMS сообщения';
 $_['text_narc_admin']				= 'Уведомление менеджерам';
-$_['entry_narc_admin_status']		= 'Статус';
+$_['entry_narc_admin_status']		= 'Активен';
 $_['entry_narc_admin_phones']		= 'Номера телефонов';
 $_['help_narc_admin_phones']		= 'Номера телефонов перечисляются через ;';
 $_['entry_narc_admin_text']			= 'Шаблон SMS сообщения';

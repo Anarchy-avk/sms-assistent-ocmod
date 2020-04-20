@@ -77,79 +77,96 @@
             </div>
             <div class="tab-pane" id="tab-naco">
               <fieldset>
-                <legend><?php echo $text_naco_customer; ?></legend>
+                <legend><?= $text_naco_order_status ?></legend>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-naco-customer-status"><?php echo $entry_naco_customer_status; ?></label>
-                  <div class="col-sm-10">
-                    <select name="smsassistent_naco_customer_status" id="input-naco-customer-status" class="form-control">
-                      <?php if ($smsassistent_naco_customer_status) { ?>
-                      <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                      <option value="0"><?php echo $text_disabled; ?></option>
-                      <?php } else { ?>
-                      <option value="1"><?php echo $text_enabled; ?></option>
-                      <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
-                      <?php } ?>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-naco-customer-text"><?php echo $entry_naco_customer_text; ?></label>
-                  <ul class="col-sm-10 nav nav-tabs">
-                    <li class="active"><a href="#tab-naco-customer-text" data-toggle="tab"><?php echo $pane_naco_sms_text; ?></a></li>
-                    <li><a href="#tab-naco-customer-template" data-toggle="tab"><?php echo $pane_naco_sms_template; ?></a></li>
+                  <ul class="col-sm-12 nav nav-tabs">
+                    <?php foreach ($order_statuses as $order_status) { ?>
+                    <li <?php if ($order_status['order_status_id'] == 1) { echo 'class="active"'; } ?>><a href="#tab-naco-status-<?php echo $order_status['order_status_id'] ?>" data-toggle="tab"><?php echo $order_status['name']; ?> (<?php echo $order_status['order_status_id']; ?>)</a></li>
+                    <?php } ?>
                   </ul>
-                  <div class="col-sm-2">
-                  </div>
-                  <div class="col-sm-10 tab-content">
-                    <div class="tab-pane active" id="tab-naco-customer-text">
-                      <textarea name="smsassistent_naco_customer_text" rows="5" placeholder="<?php echo $entry_naco_customer_text; ?>" id="input-naco-customer-text" class="form-control"><?php echo $smsassistent_naco_customer_text; ?></textarea>
-                    </div>
-                    <div class="tab-pane" id="tab-naco-customer-template">
-                      <p><?php echo $pane_naco_sms_template_text; ?></p>
-                    </div>
-                  </div>
                 </div>
               </fieldset>
-              <fieldset>
-                <legend><?php echo $text_naco_admin; ?></legend>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-naco-admin-status"><?php echo $entry_naco_admin_status; ?></label>
-                  <div class="col-sm-10">
-                    <select name="smsassistent_naco_admin_status" id="input-naco-admin-status" class="form-control">
-                      <?php if ($smsassistent_naco_admin_status) { ?>
-                      <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
-                      <option value="0"><?php echo $text_disabled; ?></option>
-                      <?php } else { ?>
-                      <option value="1"><?php echo $text_enabled; ?></option>
-                      <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
-                      <?php } ?>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-naco-admin-phones"><span data-toggle="tooltip" title="<?php echo $help_naco_admin_phones; ?>"><?php echo $entry_naco_admin_phones; ?></label>
-                  <div class="col-sm-10">
-                    <input type="text" name="smsassistent_naco_admin_phones" value="<?php echo $smsassistent_naco_admin_phones; ?>" placeholder="<?php echo $entry_naco_admin_phones; ?>" id="input-naco-admin-phones" class="form-control" />
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-naco-admin-text"><?php echo $entry_naco_admin_text; ?></label>
-                  <ul class="col-sm-10 nav nav-tabs">
-                    <li class="active"><a href="#tab-naco-admin-text" data-toggle="tab"><?php echo $pane_naco_sms_text; ?></a></li>
-                    <li><a href="#tab-naco-admin-template" data-toggle="tab"><?php echo $pane_naco_sms_template; ?></a></li>
-                  </ul>
-                  <div class="col-sm-2">
-                  </div>
-                  <div class="col-sm-10 tab-content">
-                    <div class="tab-pane active" id="tab-naco-admin-text">
-                      <textarea name="smsassistent_naco_admin_text" rows="5" placeholder="<?php echo $entry_naco_admin_text; ?>" id="input-naco-admin-text" class="form-control"><?php echo $smsassistent_naco_admin_text; ?></textarea>
+              <div class="col-sm-12 tab-content">
+                <?php foreach ($order_statuses as $order_status) { ?>
+                <?php $osId = $order_status['order_status_id']; ?>
+                <div class="tab-pane <?php if ($osId == 1) { echo 'active'; } ?>" id="tab-naco-status-<?= $osId ?>">
+                  <fieldset>
+                    <legend><?php echo $text_naco_customer; ?></legend>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="input-naco-customer-status_<?= $osId ?>"><?= $entry_naco_customer_status ?></label>
+                      <div class="col-sm-10">
+                        <select name="smsassistent_naco_customer_status_<?= $osId ?>" id="input-naco-customer-status-<?= $osId ?>" class="form-control">
+                          <?php if (${"smsassistent_naco_customer_status_$osId"}) { ?>
+                          <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                          <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php } else { ?>
+                          <option value="1"><?php echo $text_enabled; ?></option>
+                          <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
                     </div>
-                    <div class="tab-pane" id="tab-naco-admin-template">
-                      <p><?php echo $pane_naco_sms_template_text; ?></p>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="input-naco-customer-text-<?= $osId ?>"><?= $entry_naco_customer_text ?></label>
+                      <ul class="col-sm-10 nav nav-tabs">
+                        <li class="active"><a href="#tab-naco-customer-text-<?= $osId ?>" data-toggle="tab"><?php echo $pane_naco_sms_text; ?></a></li>
+                        <li><a href="#tab-naco-customer-template-<?= $osId ?>" data-toggle="tab"><?php echo $pane_naco_sms_template; ?></a></li>
+                      </ul>
+                      <div class="col-sm-2">
+                      </div>
+                      <div class="col-sm-10 tab-content">
+                        <div class="tab-pane active" id="tab-naco-customer-text-<?= $osId ?>">
+                          <textarea name="smsassistent_naco_customer_text_<?= $osId ?>" rows="5" placeholder="<?= $entry_naco_customer_text ?>" id="input-naco-customer-text-<?= $osId ?>" class="form-control"><?= ${"smsassistent_naco_customer_text_$osId"} ?></textarea>
+                        </div>
+                        <div class="tab-pane" id="tab-naco-customer-template-<?= $osId ?>">
+                          <p><?php echo $pane_naco_sms_template_text; ?></p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </fieldset>
+                  <fieldset>
+                    <legend><?php echo $text_naco_admin; ?></legend>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="input-naco-admin-status-<?= $osId ?>"><?= $entry_naco_admin_status ?></label>
+                      <div class="col-sm-10">
+                        <select name="smsassistent_naco_admin_status_<?= $osId ?>" id="input-naco-admin-status-<?= $osId ?>" class="form-control">
+                          <?php if (${"smsassistent_naco_admin_status_$osId"}) { ?>
+                          <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                          <option value="0"><?php echo $text_disabled; ?></option>
+                          <?php } else { ?>
+                          <option value="1"><?php echo $text_enabled; ?></option>
+                          <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="input-naco-admin-phones-<?= $osId ?>"><span data-toggle="tooltip" title="<?php echo $help_naco_admin_phones; ?>"><?= $entry_naco_admin_phones ?></label>
+                      <div class="col-sm-10">
+                        <input type="text" name="smsassistent_naco_admin_phones_<?= $osId ?>" value="<?= ${"smsassistent_naco_admin_phones_$osId"} ?>" placeholder="<?= $entry_naco_admin_phones ?>" id="input-naco-admin-phones-<?= $osId ?>" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="input-naco-admin-text-<?= $osId ?>"><?= $entry_naco_admin_text ?></label>
+                      <ul class="col-sm-10 nav nav-tabs">
+                        <li class="active"><a href="#tab-naco-admin-text-<?= $osId ?>" data-toggle="tab"><?php echo $pane_naco_sms_text; ?></a></li>
+                        <li><a href="#tab-naco-admin-template-<?= $osId ?>" data-toggle="tab"><?php echo $pane_naco_sms_template; ?></a></li>
+                      </ul>
+                      <div class="col-sm-2">
+                      </div>
+                      <div class="col-sm-10 tab-content">
+                        <div class="tab-pane active" id="tab-naco-admin-text-<?= $osId ?>">
+                          <textarea name="smsassistent_naco_admin_text_<?= $osId ?>" rows="5" placeholder="<?= $entry_naco_admin_text ?>" id="input-naco-admin-text-<?= $osId ?>" class="form-control"><?= ${"smsassistent_naco_admin_text_$osId"} ?></textarea>
+                        </div>
+                        <div class="tab-pane" id="tab-naco-admin-template-<?= $osId ?>">
+                          <p><?php echo $pane_naco_sms_template_text; ?></p>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
                 </div>
-              </fieldset>
+                <?php } ?>
+              </div>
             </div>
             <div class="tab-pane" id="tab-narc">
               <fieldset>

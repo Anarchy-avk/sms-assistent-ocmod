@@ -11,7 +11,7 @@
                 // Engine
             ]]></search>
             <add position="after"><![CDATA[
-                require_once(DIR_SYSTEM . 'library/smsassistent.php');
+require_once(DIR_SYSTEM . 'library/smsassistent.php');
             ]]></add>
         </operation>
     </file>
@@ -22,14 +22,14 @@
                 // Admin Alert Mail
             ]]></search>
             <add position="after"><![CDATA[
-                if ($this->config->get('smsassistent_ms_status') == "1") {
-                    if ($this->config->get('smsassistent_naco_customer_status') == "1") {
+                if ($this->config->get('smsassistent_ms_status') == '1') {
+                    if ($this->config->get("smsassistent_naco_customer_status_$order_status_id") == '1') {
                         $sms = new SMSAssistent($this->config,$this->db);
-                        $sms->nacoCustomerNotification($order_info, $order_product_query, $this->currency);
+                        $sms->nacoCustomerNotification($order_info, (int)$order_status_id, $order_product_query, $this->currency);
                     }
-                    if ($this->config->get('smsassistent_naco_admin_status') == "1") {
+                    if ($this->config->get("smsassistent_naco_admin_status_$order_status_id") == '1') {
                         $sms = new SMSAssistent($this->config, $this->db);
-                        $sms->nacoAdminNotification($order_info, $order_product_query, $this->currency);
+                        $sms->nacoAdminNotification($order_info, (int)$order_status_id, $order_product_query, $this->currency);
                     }
                 }
             ]]></add>
@@ -42,16 +42,16 @@
                 // Send to main admin email if new account email is enabled
             ]]></search>
             <add position="after"><![CDATA[
-                if ($this->config->get('smsassistent_ms_status') == "1") {
-                    if ($this->config->get('smsassistent_narc_customer_status') == "1") {
-                        $sms = new SMSAssistent($this->config, $this->db);
-                        $sms->narcCustomerNotification($customer_id, $data);
-                    }
-                    if ($this->config->get('smsassistent_narc_admin_status') == "1") {
-                        $sms = new SMSAssistent($this->config, $this->db);
-                        $sms->narcAdminNotification($customer_id, $data);
-                    }
-                }
+        if ($this->config->get('smsassistent_ms_status') == "1") {
+            if ($this->config->get('smsassistent_narc_customer_status') == "1") {
+                $sms = new SMSAssistent($this->config, $this->db);
+                $sms->narcCustomerNotification($customer_id, $data);
+            }
+            if ($this->config->get('smsassistent_narc_admin_status') == "1") {
+                $sms = new SMSAssistent($this->config, $this->db);
+                $sms->narcAdminNotification($customer_id, $data);
+            }
+        }
             ]]></add>
         </operation>
     </file>

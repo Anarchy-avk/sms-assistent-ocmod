@@ -4,11 +4,13 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
     private $error = array();
 
     public function install() {
+        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "smsassistent_send_log`");
         $this->db->query("
             CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "smsassistent_send_log` (
                 `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-                `type` ENUM('new_order','new_customer') NOT NULL DEFAULT 'new_order',
+                `type` ENUM('order','customer') NOT NULL DEFAULT 'order',
                 `related_id` INT(11) NOT NULL,
+                `additional_related_id` INT(11),
                 `notificate` ENUM('admin','customer') NOT NULL DEFAULT 'admin',
                 `created_at` DATETIME NOT NULL,
                 PRIMARY KEY (`id`),
@@ -59,8 +61,13 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
         $data['entry_ms_api_password'] = $this->language->get('entry_ms_api_password');
         $data['entry_ms_sender_name'] = $this->language->get('entry_ms_sender_name');
 
-        // Notifications after create order (naco)
+        // Notifications after change order status (naco)
+
+        $this->load->model('localisation/order_status');
+        $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
+
         $data['pane_naco'] = $this->language->get('pane_naco');
+        $data['text_naco_order_status'] = $this->language->get('text_naco_order_status');
         $data['text_naco_customer'] = $this->language->get('text_naco_customer');
         $data['entry_naco_customer_status'] = $this->language->get('entry_naco_customer_status');
         $data['entry_naco_customer_text'] = $this->language->get('entry_naco_customer_text');
@@ -123,11 +130,15 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
         $this->loadData($data, 'smsassistent_ms_api_token');
         $this->loadData($data, 'smsassistent_ms_api_password');
         $this->loadData($data, 'smsassistent_ms_sender_name');
-        $this->loadData($data, 'smsassistent_naco_customer_status');
-        $this->loadData($data, 'smsassistent_naco_customer_text');
-        $this->loadData($data, 'smsassistent_naco_admin_status');
-        $this->loadData($data, 'smsassistent_naco_admin_phones');
-        $this->loadData($data, 'smsassistent_naco_admin_text');
+
+        foreach ($this->model_localisation_order_status->getOrderStatuses() as $order_status) {
+            $this->loadData($data, 'smsassistent_naco_customer_status_' . $order_status['order_status_id']);
+            $this->loadData($data, 'smsassistent_naco_customer_text_' . $order_status['order_status_id']);
+            $this->loadData($data, 'smsassistent_naco_admin_status_' . $order_status['order_status_id']);
+            $this->loadData($data, 'smsassistent_naco_admin_phones_' . $order_status['order_status_id']);
+            $this->loadData($data, 'smsassistent_naco_admin_text_' . $order_status['order_status_id']);
+        }
+
         $this->loadData($data, 'smsassistent_narc_customer_status');
         $this->loadData($data, 'smsassistent_narc_customer_text');
         $this->loadData($data, 'smsassistent_narc_admin_status');

@@ -143,12 +143,17 @@ class SMSAssistent {
     /**
      * @param $type         string      Type of notification
      * @param $relatedId    integer     Related identifier
+     * @param $additionalRelatedId    integer|null     Related identifier
      * @param $notificate   string      Who notificate
      *
      * @return bool
      */
-    private function checkSendedLog($type, $relatedId, $notificate) {
-        $query = $this->db->query("SELECT `id` FROM `" . DB_PREFIX . "smsassistent_send_log` WHERE `type` = '$type' AND `related_id` = $relatedId AND `notificate` = '$notificate'");
+    private function checkSendedLog($type, $relatedId, $additionalRelatedId, $notificate) {
+        $query = "SELECT `id` FROM `" . DB_PREFIX . "smsassistent_send_log` WHERE `type` = '$type' AND `related_id` = $relatedId AND `notificate` = '$notificate'";
+        if ($additionalRelatedId) {
+            $query .= " AND `additional_related_id` = $additionalRelatedId";
+        }
+        $query = $this->db->query($query);
 
         return ($query->num_rows > 0);
     }
@@ -156,36 +161,37 @@ class SMSAssistent {
     /**
      * @param $type         string      Type of notification
      * @param $relatedId    integer     Related identifier
+     * @param $additionalRelatedId    integer|null     Related identifier
      * @param $notificate   string      Who notificate
      */
-    private function addSendedLog($type, $relatedId, $notificate) {
-        $query = $this->db->query("INSERT INTO `" . DB_PREFIX . "smsassistent_send_log` (`type`, `related_id`, `notificate`, `created_at`) VALUES ('$type', $relatedId, '$notificate', NOW())");
+    private function addSendedLog($type, $relatedId, $additionalRelatedId, $notificate) {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "smsassistent_send_log` (`type`, `related_id`, `additional_related_id`, `notificate`, `created_at`) VALUES ('$type', $relatedId, " . ($additionalRelatedId ? $additionalRelatedId : 'NULL') . ", '$notificate', NOW())");
     }
 
-    public function nacoCustomerNotification($order_info, $order_product_query, $currency) {
+    public function nacoCustomerNotification($order_info, $order_status_id, $order_product_query, $currency) {
 
-        if ($this->checkSendedLog('new_order', $order_info['order_id'], 'customer')) {
+        if ($this->checkSendedLog('order', $order_info['order_id'], $order_status_id, 'customer')) {
             return;
         }
 
         $phone = $order_info['telephone'];
-        $messageText = $this->nacoPrepareMessage($this->config->get('smsassistent_naco_customer_text'), $order_info, $order_product_query, $currency);
+        $messageText = $this->nacoPrepareMessage($this->config->get("smsassistent_naco_customer_text_$order_status_id"), $order_info, $order_product_query, $currency);
 
         $this->sendMessage($phone, $messageText);
 
-        $this->addSendedLog('new_order', $order_info['order_id'], 'customer');
+        $this->addSendedLog('order', $order_info['order_id'], $order_status_id, 'customer');
     }
 
-    public function nacoAdminNotification($order_info, $order_product_query, $currency) {
+    public function nacoAdminNotification($order_info, $order_status_id, $order_product_query, $currency) {
 
-        if ($this->checkSendedLog('new_order', $order_info['order_id'], 'admin')) {
+        if ($this->checkSendedLog('order', $order_info['order_id'], $order_status_id, 'admin')) {
             return;
         }
 
-        $phones = explode(';', $this->config->get('smsassistent_naco_admin_phones'));
+        $phones = explode(';', $this->config->get("smsassistent_naco_admin_phones_$order_status_id"));
 
         if (count($phones) > 0) {
-            $messageText = $this->nacoPrepareMessage($this->config->get('smsassistent_naco_admin_text'), $order_info, $order_product_query, $currency);
+            $messageText = $this->nacoPrepareMessage($this->config->get("smsassistent_naco_admin_text_$order_status_id"), $order_info, $order_product_query, $currency);
 
             if (count($phones) === 1) {
                 $this->sendMessage($phones[0], $messageText);
@@ -202,13 +208,13 @@ class SMSAssistent {
                 }
                 $this->sendMessages($messages, $default);
             }
-            $this->addSendedLog('new_order', $order_info['order_id'], 'admin');
+            $this->addSendedLog('order', $order_info['order_id'], $order_status_id, 'admin');
         }
     }
 
     public function narcCustomerNotification($customerId, $customerData) {
 
-        if ($this->checkSendedLog('new_customer', $customerId, 'customer')) {
+        if ($this->checkSendedLog('customer', $customerId, null, 'customer')) {
             return;
         }
 
@@ -217,12 +223,12 @@ class SMSAssistent {
 
         $this->sendMessage($phone, $messageText);
 
-        $this->addSendedLog('new_customer', $customerId, 'customer');
+        $this->addSendedLog('customer', $customerId, null, 'customer');
     }
 
     public function narcAdminNotification($customerId, $customerData) {
 
-        if ($this->checkSendedLog('new_customer', $customerId, 'admin')) {
+        if ($this->checkSendedLog('customer', $customerId, null, 'admin')) {
             return;
         }
 
@@ -246,7 +252,7 @@ class SMSAssistent {
                 }
                 $this->sendMessages($messages, $default);
             }
-            $this->addSendedLog('new_customer', $customerId, 'admin');
+            $this->addSendedLog('customer', $customerId, null, 'admin');
         }
     }
 }
