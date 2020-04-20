@@ -19,19 +19,21 @@ require_once(DIR_SYSTEM . 'library/smsassistent.php');
     <file path="catalog/model/checkout/order.php">
         <operation>
             <search><![CDATA[
-                // Admin Alert Mail
+                // If order status is not 0 then send update text email
             ]]></search>
             <add position="after"><![CDATA[
-                if ($this->config->get('smsassistent_ms_status') == '1') {
-                    if ($this->config->get("smsassistent_naco_customer_status_$order_status_id") == '1') {
-                        $sms = new SMSAssistent($this->config,$this->db);
-                        $sms->nacoCustomerNotification($order_info, (int)$order_status_id, $order_product_query, $this->currency);
-                    }
-                    if ($this->config->get("smsassistent_naco_admin_status_$order_status_id") == '1') {
-                        $sms = new SMSAssistent($this->config, $this->db);
-                        $sms->nacoAdminNotification($order_info, (int)$order_status_id, $order_product_query, $this->currency);
-                    }
+            if ($this->config->get('smsassistent_ms_status') == '1') {
+                if ($this->config->get("smsassistent_naco_customer_status_$order_status_id") == '1') {
+                    $sms = new SMSAssistent($this->config, $this->db);
+                    $orderProductQuery = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
+                    $sms->nacoCustomerNotification($order_info, (int)$order_status_id, $orderProductQuery, $this->currency);
                 }
+                if ($this->config->get("smsassistent_naco_admin_status_$order_status_id") == '1') {
+                    $sms = new SMSAssistent($this->config, $this->db);
+                    $orderProductQuery = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
+                    $sms->nacoAdminNotification($order_info, (int)$order_status_id, $orderProductQuery, $this->currency);
+                }
+            }
             ]]></add>
         </operation>
     </file>

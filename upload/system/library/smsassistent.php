@@ -38,6 +38,7 @@ class SMSAssistent {
         }
 
         $this->logger = new \Log('smsassistent.log');
+        $this->logger->write("SMSAssistent client created");
     }
 
     private function nacoPrepareMessage($template, $order_info, $order_product_query, $currency) {
@@ -155,6 +156,7 @@ class SMSAssistent {
         }
         $query = $this->db->query($query);
 
+        $this->logger->write("Check if sended message earlier (type=$type, relatedId=$relatedId, additionalRelatedId=$additionalRelatedId, notificate=$notificate) - " . $query->num_rows);
         return ($query->num_rows > 0);
     }
 
