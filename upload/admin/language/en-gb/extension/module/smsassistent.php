@@ -9,10 +9,11 @@ $_['text_edit']		= 'Edit SMS-Assistent Module';
 // Main settings (ms)
 $_['pane_ms']				= 'Settings';
 $_['text_ms_general']		= 'Main';
-$_['entry_ms_status']     	= 'Active';
+$_['entry_ms_status']       = 'Active';
 $_['entry_ms_api_username']	= 'API username';
+$_['entry_ms_api_password']	= 'Password';
+$_['entry_ms_api_or']	    = 'or';
 $_['entry_ms_api_token']	= 'Token';
-$_['entry_ms_api_password']	= 'or Password';
 $_['entry_ms_sender_name']	= 'Sender by default';
 
 // Notifications after create order (naco)

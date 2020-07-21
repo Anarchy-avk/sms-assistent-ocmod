@@ -9,10 +9,11 @@ $_['text_edit']		= 'Настройки модуля';
 // Main settings (ms)
 $_['pane_ms']				= 'Настройки';
 $_['text_ms_general']		= 'Основное';
-$_['entry_ms_status']		= 'Активен';
+$_['entry_ms_status']       = 'Активен';
 $_['entry_ms_api_username']	= 'Имя пользователя';
+$_['entry_ms_api_password']	= 'Пароль';
+$_['entry_ms_api_or']	    = 'или';
 $_['entry_ms_api_token']	= 'Токен';
-$_['entry_ms_api_password']	= 'или Пароль';
 $_['entry_ms_sender_name']	= 'Отправитель по-умолчанию';
 
 // Notifications after change order status (naco)

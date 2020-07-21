@@ -17,6 +17,17 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
                 KEY `related_id` (`related_id`)
             )
         ");
+
+        $this->load->model('setting/setting');
+        $this->model_setting_setting->editSetting('module_smsassistent', ['module_smsassistent_status' => 1]);
+    }
+
+    public function uninstall() {
+        $this->load->model('setting/setting');
+        $this->model_setting_setting->deleteSetting('smsassistent');
+        $this->model_setting_setting->deleteSetting('module_smsassistent');
+
+        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "smsassistent_send_log`");
     }
 
     private function loadData(&$data, $data_name) {
@@ -39,7 +50,7 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', 'SSL'));
+            $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', 'SSL'));
         }
 
         // Heading
@@ -57,12 +68,12 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
         $data['text_ms_general'] = $this->language->get('text_ms_general');
         $data['entry_ms_status'] = $this->language->get('entry_ms_status');
         $data['entry_ms_api_username'] = $this->language->get('entry_ms_api_username');
-        $data['entry_ms_api_token'] = $this->language->get('entry_ms_api_token');
         $data['entry_ms_api_password'] = $this->language->get('entry_ms_api_password');
+        $data['entry_ms_api_or'] = $this->language->get('entry_ms_api_or');
+        $data['entry_ms_api_token'] = $this->language->get('entry_ms_api_token');
         $data['entry_ms_sender_name'] = $this->language->get('entry_ms_sender_name');
 
         // Notifications after change order status (naco)
-
         $this->load->model('localisation/order_status');
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
@@ -108,22 +119,22 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], 'SSL')
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], 'SSL')
         );
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_module'),
-            'href' => $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', 'SSL')
+            'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', 'SSL')
         );
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('extension/module/smsassistent', 'token=' . $this->session->data['token'], 'SSL')
+            'href' => $this->url->link('extension/module/smsassistent', 'user_token=' . $this->session->data['user_token'], 'SSL')
         );
 
-        $data['action'] = $this->url->link('extension/module/smsassistent', 'token=' . $this->session->data['token'], 'SSL');
+        $data['action'] = $this->url->link('extension/module/smsassistent', 'user_token=' . $this->session->data['user_token'], 'SSL');
 
-        $data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', 'SSL');
+        $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', 'SSL');
 
         $this->loadData($data, 'smsassistent_ms_status');
         $this->loadData($data, 'smsassistent_ms_api_username');
@@ -155,7 +166,7 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('extension/module/smsassistent.tpl', $data));
+        $this->response->setOutput($this->load->view('extension/module/smsassistent', $data));
     }
 
     protected function validate() {
