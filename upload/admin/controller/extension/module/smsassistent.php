@@ -69,9 +69,12 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
         $data['entry_ms_status'] = $this->language->get('entry_ms_status');
         $data['entry_ms_api_username'] = $this->language->get('entry_ms_api_username');
         $data['entry_ms_api_password'] = $this->language->get('entry_ms_api_password');
+        $data['help_ms_api_password'] = $this->language->get('help_ms_api_password');
         $data['entry_ms_api_or'] = $this->language->get('entry_ms_api_or');
         $data['entry_ms_api_token'] = $this->language->get('entry_ms_api_token');
         $data['entry_ms_sender_name'] = $this->language->get('entry_ms_sender_name');
+        $data['entry_ms_base_url'] = $this->language->get('entry_ms_base_url');
+        $data['help_ms_base_url'] = $this->language->get('help_ms_base_url');
 
         // Notifications after change order status (naco)
         $this->load->model('localisation/order_status');
@@ -141,6 +144,7 @@ class ControllerExtensionModuleSMSAssistent extends Controller {
         $this->loadData($data, 'smsassistent_ms_api_token');
         $this->loadData($data, 'smsassistent_ms_api_password');
         $this->loadData($data, 'smsassistent_ms_sender_name');
+        $this->loadData($data, 'smsassistent_ms_base_url');
 
         foreach ($this->model_localisation_order_status->getOrderStatuses() as $order_status) {
             $this->loadData($data, 'smsassistent_naco_customer_status_' . $order_status['order_status_id']);

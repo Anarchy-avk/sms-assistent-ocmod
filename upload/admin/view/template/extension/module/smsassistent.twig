@@ -56,7 +56,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-ms-api-password">{{ entry_ms_api_password }}</label>
+                  <label class="col-sm-2 control-label" for="input-ms-api-password"><span data-toggle="tooltip" title="{{ help_ms_api_password }} https://userarea.sms-assistent.by/api_logs.php">{{ entry_ms_api_password }}</label>
                   <div class="col-sm-10">
                     <input type="text" name="smsassistent_ms_api_password" value="{{ smsassistent_ms_api_password }}" placeholder="{{ entry_ms_api_password }}" id="input-ms-api-password" class="form-control" />
                   </div>
@@ -71,6 +71,12 @@
                   <label class="col-sm-2 control-label" for="input-ms-sender-name">{{ entry_ms_sender_name }}</label>
                   <div class="col-sm-10">
                     <input type="text" name="smsassistent_ms_sender_name" value="{{ smsassistent_ms_sender_name }}" placeholder="{{ entry_ms_sender_name }}" id="input-ms-sender-name" class="form-control" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-ms-base-url"><span data-toggle="tooltip" title="{{ help_ms_base_url }} https://userarea.sms-assistent.by/api/v1/">{{ entry_ms_base_url }}</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="smsassistent_ms_base_url" value="{{ smsassistent_ms_base_url }}" placeholder="{{ entry_ms_base_url }}" id="input-ms-base-url" class="form-control" />
                   </div>
                 </div>
               </fieldset>

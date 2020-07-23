@@ -2,6 +2,7 @@
 
 require DIR_SYSTEM . 'library/smsassistent/vendor/autoload.php';
 
+use GuzzleHttp\Client as GuzzleHttpClient;
 use ByZer0\SmsAssistantBy\Client;
 use ByZer0\SmsAssistantBy\Http\GuzzleClient;
 use ByZer0\SmsAssistantBy\Exceptions;
@@ -17,14 +18,20 @@ class SMSAssistent {
         $this->config = $extConfig;
         $this->db = $db;
 
-        $this->client = new Client(new GuzzleClient());
+        if (file_exists(__DIR__ . '/smsassistent/cacert.pem')) {
+            $client = new GuzzleHttpClient(['verify' => __DIR__ . '/smsassistent/cacert.pem']);
+        } else {
+            $client = null;
+        }
+
+        $this->client = new Client(new GuzzleClient($client));
         $this->client->setUsername($this->config->get('smsassistent_ms_api_username'));
 
         $api_token = $this->config->get('smsassistent_ms_api_token');
         $api_password = $this->config->get('smsassistent_ms_api_password');
         $sender_name = $this->config->get('smsassistent_ms_sender_name');
 
-        if ($api_token !== '')
+        if ($api_token != '')
         {
             $this->client->setToken($api_token);
         } else if ($api_password !== '')
@@ -32,9 +39,15 @@ class SMSAssistent {
             $this->client->setPassword($api_password);
         }
 
-        if ($sender_name !== '')
+        if ($sender_name != '')
         {
             $this->client->setSender($this->config->get('smsassistent_ms_sender_name'));
+        }
+
+        $base_url = $this->config->get('smsassistent_ms_base_url');
+        if ($base_url != '')
+        {
+            $this->client->setBaseUrl($base_url);
         }
 
         $this->logger = new \Log('smsassistent.log');
@@ -116,6 +129,8 @@ class SMSAssistent {
             $this->logger->write("Catch exception: MessageIdException (Code: -11)\n" . $e->getTraceAsString());
         } catch (Exceptions\SendTimeException $e) {
             $this->logger->write("Catch exception: SendTimeException (Code: -14, -15)\n" . $e->getTraceAsString());
+        } catch (Exception $e) {
+            $this->logger->write("Unknown exception: " . $e->getMessage() . "\n" . $e->getTraceAsString());
         }
     }
 
@@ -138,6 +153,8 @@ class SMSAssistent {
             $this->logger->write("Catch exception: MessageIdException (Code: -11)\n" . $e->getTraceAsString());
         } catch (Exceptions\SendTimeException $e) {
             $this->logger->write("Catch exception: SendTimeException (Code: -14, -15)\n" . $e->getTraceAsString());
+        } catch (Exception $e) {
+            $this->logger->write("Unknown exception: " . $e->getMessage() . "\n" . $e->getTraceAsString());
         }
     }
 
