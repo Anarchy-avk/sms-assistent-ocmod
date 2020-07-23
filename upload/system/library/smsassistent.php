@@ -31,7 +31,7 @@ class SMSAssistent {
         $api_password = $this->config->get('smsassistent_ms_api_password');
         $sender_name = $this->config->get('smsassistent_ms_sender_name');
 
-        if ($api_token !== '')
+        if ($api_token != '')
         {
             $this->client->setToken($api_token);
         } else if ($api_password !== '')
@@ -39,13 +39,13 @@ class SMSAssistent {
             $this->client->setPassword($api_password);
         }
 
-        if ($sender_name !== '')
+        if ($sender_name != '')
         {
             $this->client->setSender($this->config->get('smsassistent_ms_sender_name'));
         }
 
         $base_url = $this->config->get('smsassistent_ms_base_url');
-        if ($base_url !== '')
+        if ($base_url != '')
         {
             $this->client->setBaseUrl($base_url);
         }
