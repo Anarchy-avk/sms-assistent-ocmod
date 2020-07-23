@@ -11,9 +11,13 @@ $_['pane_ms']				= 'Настройки';
 $_['text_ms_general']		= 'Основное';
 $_['entry_ms_status']		= 'Активен';
 $_['entry_ms_api_username']	= 'Имя пользователя';
+$_['entry_ms_api_password']	= 'Пароль';
+$_['help_ms_api_password']	= 'Пароль для доступа к АПИ. Генерируется в личном кабинете';
+$_['entry_ms_api_or']	    = 'или';
 $_['entry_ms_api_token']	= 'Токен';
-$_['entry_ms_api_password']	= 'или Пароль';
 $_['entry_ms_sender_name']	= 'Отправитель по-умолчанию';
+$_['entry_ms_base_url']	    = 'Адрес API сервера';
+$_['help_ms_base_url']      = 'Если не указан, то используется адрес сервера по-умолчанию';
 
 // Notifications after change order status (naco)
 $_['pane_naco']						= 'Новый статус заказа';

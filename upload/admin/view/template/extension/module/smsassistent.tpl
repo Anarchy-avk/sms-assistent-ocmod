@@ -56,21 +56,27 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-ms-api-token"><?php echo $entry_ms_api_token; ?></label>
+                  <label class="col-sm-2 control-label" for="input-ms-api-password"><span data-toggle="tooltip" title="<?php echo $help_ms_api_password; ?> https://userarea.sms-assistent.by/api_logs.php"><?php echo $entry_ms_api_password; ?></label>
                   <div class="col-sm-10">
-                    <input type="text" name="smsassistent_ms_api_token" value="<?php echo $smsassistent_ms_api_token; ?>" placeholder="<?php echo $entry_ms_api_token; ?>" id="input-ms-api-token" class="form-control" />
+                    <input type="text" name="smsassistent_ms_api_password" value="<?php echo $smsassistent_ms_api_password; ?>" placeholder="<?php echo $entry_ms_api_password; ?>" id="input-ms-api-password" class="form-control" />
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-ms-api-password"><?php echo $entry_ms_api_password; ?></label>
+                  <label class="col-sm-2 control-label" for="input-ms-api-token"><?php echo $entry_ms_api_or; ?> <?php echo $entry_ms_api_token; ?></label>
                   <div class="col-sm-10">
-                    <input type="text" name="smsassistent_ms_api_password" value="<?php echo $smsassistent_ms_api_password; ?>" placeholder="<?php echo $entry_ms_api_password; ?>" id="input-ms-api-password" class="form-control" />
+                    <input type="text" name="smsassistent_ms_api_token" value="<?php echo $smsassistent_ms_api_token; ?>" placeholder="<?php echo $entry_ms_api_token; ?>" id="input-ms-api-token" class="form-control" />
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-ms-sender-name"><?php echo $entry_ms_sender_name; ?></label>
                   <div class="col-sm-10">
                     <input type="text" name="smsassistent_ms_sender_name" value="<?php echo $smsassistent_ms_sender_name; ?>" placeholder="<?php echo $entry_ms_sender_name; ?>" id="input-ms-sender-name" class="form-control" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-ms-base-url"><span data-toggle="tooltip" title="<?php echo $help_ms_base_url; ?> https://userarea.sms-assistent.by/api/v1/"><?php echo $entry_ms_base_url; ?></label>
+                  <div class="col-sm-10">
+                    <input type="text" name="smsassistent_ms_base_url" value="<?php echo $smsassistent_ms_base_url; ?>" placeholder="<?php echo $entry_ms_base_url; ?>" id="input-ms-base-url" class="form-control" />
                   </div>
                 </div>
               </fieldset>

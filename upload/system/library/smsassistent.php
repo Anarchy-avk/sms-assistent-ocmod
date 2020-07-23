@@ -44,6 +44,12 @@ class SMSAssistent {
             $this->client->setSender($this->config->get('smsassistent_ms_sender_name'));
         }
 
+        $base_url = $this->config->get('smsassistent_ms_base_url');
+        if ($base_url !== '')
+        {
+            $this->client->setBaseUrl($base_url);
+        }
+
         $this->logger = new \Log('smsassistent.log');
         $this->logger->write("SMSAssistent client created");
     }
