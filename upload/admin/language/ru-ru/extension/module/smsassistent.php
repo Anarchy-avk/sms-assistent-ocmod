@@ -46,7 +46,7 @@ $_['pane_naco_sms_template_text'] 	= <<<TEMPLATE_TEXT
 <strong>{total}</strong> - итого по заказу;</br>
 <strong>{products_ids}</strong> - идентификаторы товаров, перечисленные через запятую;</br> 
 <strong>{products_names}</strong> - названия товаров, перечисленные через запятую;</br> 
-<strong>{products_names_prices}</strong> - название и цена товаров, перечисленные через запятую
+<strong>{products_names_prices}</strong> - название и цена товаров, перечисленные через запятую.
 TEMPLATE_TEXT;
 
 // Notifications after register customer (narc)
@@ -67,15 +67,10 @@ $_['pane_narc_sms_template_text'] 	= <<<TEMPLATE_TEXT
 <strong>{email}</strong> - Email;</br>
 <strong>{telephone}</strong> - Телефон;</br> 
 <strong>{fax}</strong> - Факс;</br>
-<strong>{company}</strong> - Место работы;</br>
-<strong>{address_1}</strong> - Адрес;</br>
-<strong>{address_2}</strong> - Адрес дополнительно;</br>
-<strong>{city}</strong> - Город;</br> 
-<strong>{postcode}</strong> - Почтовый индекс;
-<strong>{store_name}</strong> - Название магазина;
-<strong>{store_address}</strong> - Адрес магазина;
-<strong>{store_email}</strong> - Email магазина;
-<strong>{store_phone}</strong> - Телефон магазина;
+<strong>{store_name}</strong> - Название магазина;</br>
+<strong>{store_address}</strong> - Адрес магазина;</br>
+<strong>{store_email}</strong> - Email магазина;</br>
+<strong>{store_phone}</strong> - Телефон магазина.
 TEMPLATE_TEXT;
 
 // Logs (logs)

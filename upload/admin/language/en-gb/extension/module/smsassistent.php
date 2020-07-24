@@ -46,7 +46,7 @@ $_['pane_naco_sms_template_text'] 	= <<<TEMPLATE_TEXT
 <strong>{total}</strong> - Order total;</br>
 <strong>{products_ids}</strong> - Product IDs separated by commas;</br> 
 <strong>{products_names}</strong> - Product names separated by commas;</br> 
-<strong>{products_names_prices}</strong> - Product names and prices separated by commas
+<strong>{products_names_prices}</strong> - Product names and prices separated by commas.
 TEMPLATE_TEXT;
 
 // Notifications after register customer (narc)
@@ -67,15 +67,10 @@ $_['pane_narc_sms_template_text'] 	= <<<TEMPLATE_TEXT
 <strong>{email}</strong> - Email;</br>
 <strong>{telephone}</strong> - Phone;</br> 
 <strong>{fax}</strong> - Fax;</br>
-<strong>{company}</strong> - Company;</br>
-<strong>{address_1}</strong> - Address first line;</br>
-<strong>{address_2}</strong> - Address second line;</br>
-<strong>{city}</strong> - City;</br> 
-<strong>{postcode}</strong> - Postcode;
-<strong>{store_name}</strong> - Store name;
-<strong>{store_address}</strong> - Store address;
-<strong>{store_email}</strong> - Store Email;
-<strong>{store_phone}</strong> - Store phone;
+<strong>{store_name}</strong> - Store name;</br>
+<strong>{store_address}</strong> - Store address;</br>
+<strong>{store_email}</strong> - Store Email;</br>
+<strong>{store_phone}</strong> - Store phone.
 TEMPLATE_TEXT;
 
 // Logs (logs)
