@@ -4,9 +4,9 @@ This module can be used to send SMS messages from E-commerce platform "OpenCart"
 
 # Installation
 
-* OpenCart 2.3.x  
+* OpenCart 3.x  
   * Configure FTP section in OpenCart store  settings  
-  * Download last version of module [SMSAssistent.ocmod.zip](https://github.com/Anarchy-avk/sms-assistent-ocmod/releases)
+  * Download last version of module 
   * Go to "Extension Installer" section of OpenCart admin area
   * Choose "Upload" and select downloaded file, after click "Continue"
   * Next, go to "Extensions", choose extension type "Modules" and find extension with name "SMS-Assistent", click Install button if not installed automatically
