@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
     <name>SMS-Assistent Module</name>
-    <version>1.5</version>
+    <version>1.6</version>
     <author>SMS-Assistent</author>
-    <code>MkmdZNiVVAoQKJd7zjIp1sfzojqufHsC</code>
+    <code>jEl5MZAg0hBiza34T6XHuJr5dvJ1tnXq</code>
 
     <file path="system/startup.php">
         <operation>
@@ -54,6 +54,28 @@ require_once(DIR_SYSTEM . 'library/smsassistent.php');
                 $sms->narcAdminNotification($customer_id, $data);
             }
         }
+            ]]></add>
+        </operation>
+    </file>
+
+    <file path="admin/model/sale/orderproh.php">
+        <operation>
+            <search><![CDATA[
+                $order_history_id = $this->db->getLastId();
+            ]]></search>
+            <add position="after"><![CDATA[
+            if ($this->config->get('smsassistent_ms_status') == '1') {
+                if ($this->config->get("smsassistent_naco_customer_status_$new_status_id") == '1') {
+                    $sms = new SMSAssistent($this->config, $this->db);
+                    $orderProductQuery = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
+                    $sms->nacoCustomerNotification($order_info, (int)$new_status_id, $orderProductQuery, $this->currency);
+                }
+                if ($this->config->get("smsassistent_naco_admin_status_$new_status_id") == '1') {
+                    $sms = new SMSAssistent($this->config, $this->db);
+                    $orderProductQuery = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
+                    $sms->nacoAdminNotification($order_info, (int)$new_status_id, $orderProductQuery, $this->currency);
+                }
+            }
             ]]></add>
         </operation>
     </file>
