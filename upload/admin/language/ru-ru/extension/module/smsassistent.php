@@ -43,6 +43,8 @@ $_['pane_naco_sms_template_text'] 	= <<<TEMPLATE_TEXT
 <strong>{telephone}</strong> - телефон покупателя;</br>
 <strong>{firstname}</strong> - фамилия покупателя;</br> 
 <strong>{lastname}</strong> - имя покупателя;</br>
+<strong>{comment}</strong> - комментарий к заказу;</br>
+<strong>{history_comment}</strong> - комментарий к статусу заказа;</br>
 <strong>{total}</strong> - итого по заказу;</br>
 <strong>{products_ids}</strong> - идентификаторы товаров, перечисленные через запятую;</br> 
 <strong>{products_names}</strong> - названия товаров, перечисленные через запятую;</br> 
@@ -71,10 +73,10 @@ $_['pane_narc_sms_template_text'] 	= <<<TEMPLATE_TEXT
 <strong>{address_1}</strong> - Адрес;</br>
 <strong>{address_2}</strong> - Адрес дополнительно;</br>
 <strong>{city}</strong> - Город;</br> 
-<strong>{postcode}</strong> - Почтовый индекс;
-<strong>{store_name}</strong> - Название магазина;
-<strong>{store_address}</strong> - Адрес магазина;
-<strong>{store_email}</strong> - Email магазина;
+<strong>{postcode}</strong> - Почтовый индекс;</br>
+<strong>{store_name}</strong> - Название магазина;</br>
+<strong>{store_address}</strong> - Адрес магазина;</br>
+<strong>{store_email}</strong> - Email магазина;</br>
 <strong>{store_phone}</strong> - Телефон магазина;
 TEMPLATE_TEXT;
 

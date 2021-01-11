@@ -43,6 +43,8 @@ $_['pane_naco_sms_template_text'] 	= <<<TEMPLATE_TEXT
 <strong>{telephone}</strong> - Customer phone;</br>
 <strong>{firstname}</strong> - Customer lastname;</br> 
 <strong>{lastname}</strong> - Customer firstname;</br>
+<strong>{comment}</strong> - Order comment;</br>
+<strong>{history_comment}</strong> - Order history comment;</br>
 <strong>{total}</strong> - Order total;</br>
 <strong>{products_ids}</strong> - Product IDs separated by commas;</br> 
 <strong>{products_names}</strong> - Product names separated by commas;</br> 
@@ -71,10 +73,10 @@ $_['pane_narc_sms_template_text'] 	= <<<TEMPLATE_TEXT
 <strong>{address_1}</strong> - Address first line;</br>
 <strong>{address_2}</strong> - Address second line;</br>
 <strong>{city}</strong> - City;</br> 
-<strong>{postcode}</strong> - Postcode;
-<strong>{store_name}</strong> - Store name;
-<strong>{store_address}</strong> - Store address;
-<strong>{store_email}</strong> - Store Email;
+<strong>{postcode}</strong> - Postcode;</br>
+<strong>{store_name}</strong> - Store name;</br>
+<strong>{store_address}</strong> - Store address;</br>
+<strong>{store_email}</strong> - Store Email;</br>
 <strong>{store_phone}</strong> - Store phone;
 TEMPLATE_TEXT;
 
