@@ -43,6 +43,8 @@ $_['pane_naco_sms_template_text'] 	= <<<TEMPLATE_TEXT
 <strong>{telephone}</strong> - телефон покупателя;</br>
 <strong>{firstname}</strong> - фамилия покупателя;</br> 
 <strong>{lastname}</strong> - имя покупателя;</br>
+<strong>{comment}</strong> - комментарий к заказу;</br>
+<strong>{history_comment}</strong> - комментарий к статусу заказа;</br>
 <strong>{total}</strong> - итого по заказу;</br>
 <strong>{products_ids}</strong> - идентификаторы товаров, перечисленные через запятую;</br> 
 <strong>{products_names}</strong> - названия товаров, перечисленные через запятую;</br> 

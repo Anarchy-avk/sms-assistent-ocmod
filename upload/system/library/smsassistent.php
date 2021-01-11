@@ -75,6 +75,8 @@ class SMSAssistent {
             '{telephone}' => $order_info['telephone'],
             '{firstname}' => $order_info['firstname'],
             '{lastname}' => $order_info['lastname'],
+            '{comment}' => $order_info['comment'],
+            '{history_comment}' => $order_info['history_comment'],
             '{total}' => $currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value']),
             '{products_ids}' => $products_ids,
             '{products_names}' => $products_names,

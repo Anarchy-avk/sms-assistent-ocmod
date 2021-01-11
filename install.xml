@@ -14,6 +14,8 @@
             if ($this->config->get('smsassistent_ms_status') == '1') {
                 require_once(DIR_SYSTEM . 'library/smsassistent.php');
 
+                $order_info['history_comment'] = $comment;
+
                 $orderProductQuery = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
 
                 if ($this->config->get("smsassistent_naco_customer_status_$order_status_id") == '1') {
@@ -61,6 +63,12 @@
             <add position="after"><![CDATA[
             if ($this->config->get('smsassistent_ms_status') == '1') {
                 require_once(DIR_SYSTEM . 'library/smsassistent.php');
+
+                $history_comment = '';
+                if (!empty($hdata['comment']) {
+                    $history_comment = strip_tags($hdata['comment']);
+                }
+                $order_info['history_comment'] = $history_comment;
 
                 $orderProductQuery = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
 

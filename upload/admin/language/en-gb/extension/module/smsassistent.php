@@ -43,6 +43,8 @@ $_['pane_naco_sms_template_text'] 	= <<<TEMPLATE_TEXT
 <strong>{telephone}</strong> - Customer phone;</br>
 <strong>{firstname}</strong> - Customer lastname;</br> 
 <strong>{lastname}</strong> - Customer firstname;</br>
+<strong>{comment}</strong> - Order comment;</br>
+<strong>{history_comment}</strong> - Order history comment;</br>
 <strong>{total}</strong> - Order total;</br>
 <strong>{products_ids}</strong> - Product IDs separated by commas;</br> 
 <strong>{products_names}</strong> - Product names separated by commas;</br> 
