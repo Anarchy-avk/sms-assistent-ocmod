@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
     <name>SMS-Assistent Module</name>
-    <version>1.6</version>
+    <version>1.7</version>
     <author>SMS-Assistent</author>
-    <code>jEl5MZAg0hBiza34T6XHuJr5dvJ1tnXq</code>
+    <code>vKpCjeJW5qQikOWRF3dhnevHrmYVp62O</code>
 
     <file path="system/startup.php">
         <operation>
