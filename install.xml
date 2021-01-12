@@ -67,7 +67,7 @@ require_once(DIR_SYSTEM . 'library/smsassistent.php');
             <add position="after"><![CDATA[
             if ($this->config->get('smsassistent_ms_status') == '1') {
                 $history_comment = '';
-                if (!empty($hdata['comment']) {
+                if (!empty($hdata['comment'])) {
                     $history_comment = strip_tags($hdata['comment']);
                 }
                 $order_info['history_comment'] = $history_comment;
