@@ -65,7 +65,7 @@
                 require_once(DIR_SYSTEM . 'library/smsassistent.php');
 
                 $history_comment = '';
-                if (!empty($hdata['comment']) {
+                if (!empty($hdata['comment'])) {
                     $history_comment = strip_tags($hdata['comment']);
                 }
                 $order_info['history_comment'] = $history_comment;
