@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
     <name>SMS-Assistent Module</name>
-    <version>1.7</version>
+    <version>2.0</version>
     <author>SMS-Assistent</author>
-    <code>vKpCjeJW5qQikOWRF3dhnevHrmYVp62O</code>
+    <code>ay7Aes86WruTIWsbISttHBta0FZkAa4r</code>
 
     <file path="catalog/model/checkout/order.php">
         <operation>
@@ -14,15 +14,19 @@
             if ($this->config->get('smsassistent_ms_status') == '1') {
                 require_once(DIR_SYSTEM . 'library/smsassistent.php');
 
-                $order_info['history_comment'] = $comment;
+                $history_comment = '';
+                if (!empty($hdata['comment'])) {
+                    $history_comment = strip_tags($hdata['comment']);
+                }
+                $order_info['history_comment'] = $history_comment;
 
                 $orderProductQuery = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
 
-                if ($this->config->get("smsassistent_naco_customer_status_$order_status_id") == '1') {
+                if ($this->config->get("smsassistent_naco_customer_status_$order_status_id") != "disabled") {
                     $sms = new SMSAssistent($this->config, $this->db);
                     $sms->nacoCustomerNotification($order_info, (int)$order_status_id, $orderProductQuery, $this->currency);
                 }
-                if ($this->config->get("smsassistent_naco_admin_status_$order_status_id") == '1') {
+                if ($this->config->get("smsassistent_naco_admin_status_$order_status_id") != "disabled") {
                     $sms = new SMSAssistent($this->config, $this->db);
                     $sms->nacoAdminNotification($order_info, (int)$order_status_id, $orderProductQuery, $this->currency);
                 }
@@ -42,11 +46,11 @@
 
                     $customer = $this->getCustomer($customer_id);
 
-                    if ($this->config->get('smsassistent_narc_customer_status') == "1") {
+                    if ($this->config->get('smsassistent_narc_customer_status_0') != "disabled") {
                         $sms = new SMSAssistent($this->config, $this->db);
                         $sms->narcCustomerNotification($customer);
                     }
-                    if ($this->config->get('smsassistent_narc_admin_status') == "1") {
+                    if ($this->config->get('smsassistent_narc_admin_status_0') != "disabled") {
                         $sms = new SMSAssistent($this->config, $this->db);
                         $sms->narcAdminNotification($customer);
                     }
@@ -72,11 +76,11 @@
 
                 $orderProductQuery = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");
 
-                if ($this->config->get("smsassistent_naco_customer_status_$new_status_id") == '1') {
+                if ($this->config->get("smsassistent_naco_customer_status_$new_status_id") != "disabled") {
                     $sms = new SMSAssistent($this->config, $this->db);
                     $sms->nacoCustomerNotification($order_info, (int)$new_status_id, $orderProductQuery, $this->currency);
                 }
-                if ($this->config->get("smsassistent_naco_admin_status_$new_status_id") == '1') {
+                if ($this->config->get("smsassistent_naco_admin_status_$new_status_id") != "disabled") {
                     $sms = new SMSAssistent($this->config, $this->db);
                     $sms->nacoAdminNotification($order_info, (int)$new_status_id, $orderProductQuery, $this->currency);
                 }
