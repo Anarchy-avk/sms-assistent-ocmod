@@ -1,0 +1,194 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-smsassistent" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <script>
+      function selectOption(module, recipient, messenger, id){
+        link = 'a[href="#tab-' + module + '-' + recipient + '-' + messenger + '-' + id + '"]';
+        $(link).tab('show');
+      }
+      function visibilityBlock(checkbox, div){
+        if ($(checkbox).is(':checked')){
+          $('#' + div).show(100);
+        } else{
+          $('#' + div).hide(100);
+        }
+      }
+  </script>
+  <div class="container-fluid">
+    {% if error_warning %}
+      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-smsassistent" class="form-horizontal">
+          {#  навигация по разделам #}
+          <ul class="col-sm-12 nav nav-tabs" id="settings-tabs">
+            <li class="active"><a href="#tab-ms" data-toggle="tab">{{ pane_ms }}</a></li>
+            <li><a href="#tab-naco" data-toggle="tab">{{ pane_naco }}</a></li>
+            <li><a href="#tab-narc" data-toggle="tab">{{ pane_narc }}</a></li>
+            <li><a href="#tab-logs" data-toggle="tab">{{ pane_logs }}</a></li>
+          </ul>
+          <div class="col-sm-12 tab-content">
+            {# вкладка Настройки #}
+            <div class="tab-pane active" id="tab-ms">
+              <fieldset>
+                <legend>{{ text_ms_general }}</legend>
+                {# поле Настройки->Активен #}
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-ms-status">{{ entry_ms_status }}</label>
+                  <div class="col-sm-10">
+                    <select name="smsassistent_ms_status" id="input-ms-status" class="form-control">
+                      {% if smsassistent_ms_status == 0 %}
+                        <option value="0" selected="selected">{{ text_disabled }}</option>
+                        <option value="1">{{ text_enabled }}</option>
+                      {% else %}
+                        <option value="0">{{ text_disabled }}</option>
+                        <option value="1" selected="selected">{{ text_enabled }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
+                </div>
+                {# поле Настройки->Имя пользователя #}
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-ms-api-username">{{ entry_ms_api_username }}</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="smsassistent_ms_api_username" value="{{ smsassistent_ms_api_username }}" placeholder="{{ entry_ms_api_username }}" id="input-ms-api-username" class="form-control" />
+                  </div>
+                </div>
+                {# поле Настройки->Пароль #}
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-ms-api-password"><span data-toggle="tooltip" title="{{ help_ms_api_password }} https://userarea.sms-assistent.by/api_logs.php">{{ entry_ms_api_password }}</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="smsassistent_ms_api_password" value="{{ smsassistent_ms_api_password }}" placeholder="{{ entry_ms_api_password }}" id="input-ms-api-password" class="form-control" />
+                  </div>
+                </div>
+                {# поле Настройки->Токен #}
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-ms-api-token">{{ entry_ms_api_or }} {{ entry_ms_api_token }}</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="smsassistent_ms_api_token" value="{{ smsassistent_ms_api_token }}" placeholder="{{ entry_ms_api_token }}" id="input-ms-api-token" class="form-control" />
+                  </div>
+                </div>
+                {# поле Настройки->Имя отправителя SMS по-умолчанию #}
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-ms-sender-name-sms">{{ entry_ms_sender_name_sms }}</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="smsassistent_ms_sender_name_sms" value="{{ smsassistent_ms_sender_name_sms }}" placeholder="{{ entry_ms_sender_name_sms }}" id="input-ms-sender-name-sms" class="form-control" />
+                  </div>
+                </div>
+                {# поле Настройки->Имя отправителя Viber по-умолчанию #}
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-ms-sender-name-viber">{{ entry_ms_sender_name_viber }}</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="smsassistent_ms_sender_name_viber" value="{{ smsassistent_ms_sender_name_viber }}" placeholder="{{ entry_ms_sender_name_viber }}" id="input-ms-sender-name-viber" class="form-control" />
+                  </div>
+                </div>
+                {# поле Настройки->Адрес API сервера #}
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-ms-base-url"><span data-toggle="tooltip" title="{{ help_ms_base_url }} https://userarea.sms-assistent.by/api/v1/">{{ entry_ms_base_url }}</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="smsassistent_ms_base_url" value="{{ smsassistent_ms_base_url }}" placeholder="{{ entry_ms_base_url }}" id="input-ms-base-url" class="form-control" />
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            {# вкладка Новый статус заказа #}
+            <div class="tab-pane " id="tab-naco">
+              <fieldset>
+                <legend>{{ text_naco_order_status }}</legend>
+                <div class="form-group">
+                  <ul class="col-sm-12 nav nav-pills">
+                    {% for order_status in order_statuses %}
+                      {% set countStatusOn = 0 %}
+                      {% if(_context['smsassistent_naco_customer_status_' ~order_status.order_status_id] == 'sms') %} {% set countStatusOn = countStatusOn + 1 %} {% endif %}
+                      {% if(_context['smsassistent_naco_customer_status_' ~order_status.order_status_id] == 'viber') %} {% set countStatusOn = countStatusOn + 1 %} {% endif %}
+                      {% if(_context['smsassistent_naco_admin_status_' ~order_status.order_status_id] == 'sms') %} {% set countStatusOn = countStatusOn + 1 %} {% endif %}
+                      {% if(_context['smsassistent_naco_admin_status_' ~order_status.order_status_id] == 'viber') %} {% set countStatusOn = countStatusOn + 1 %} {% endif %}
+                      <li {{ (loop.index == 1) ? 'class="active"' }} value="{{ order_status.order_status_id }}"><a href="#tab-naco-status-{{ order_status.order_status_id }}" data-toggle="tab">{{ order_status.name }} ({{ countStatusOn }})</a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </fieldset>
+              <div class="col-sm-12 tab-content">
+                {#  навигация по статусам #}
+                {% for order_status in order_statuses %}
+                  {% set osId = order_status.order_status_id %}
+                  <div class="tab-pane {{ (osId == 1) ? 'active' }}" id="tab-naco-status-{{ osId }}">
+                    {# блок Уведомления пользователю #}
+                    <fieldset>
+                      <legend>{{ text_naco_customer }}</legend>
+                      {# naco-customer-id #}
+                      {# mod-rec-osId #}
+                      {% set mod = 'naco' %}
+                      {% set rec = 'customer' %}
+                      {% include 'extension/module/smsassistent.message.settings.twig' %}
+                    </fieldset>
+                    {# блок уведомления менеджеру #}
+                    <fieldset>
+                      <legend>{{ text_naco_admin }}</legend>
+                      {# naco-admin-id #}
+                      {# mod-rec-osId #}
+                      {% set mod = 'naco' %}
+                      {% set rec = 'admin' %}
+                      {% include 'extension/module/smsassistent.message.settings.twig' %}
+                    </fieldset>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+            {# вкладка Новый пользователь #}
+            <div class="tab-pane" id="tab-narc">
+              <fieldset>
+                <legend>{{ text_narc_customer }}</legend>
+                {# narc-customer-id #}
+                {# mod-rec-osId #}
+                {% set mod = 'narc' %}
+                {% set rec = 'customer' %}
+                {% set osId = 0 %}
+                {% include 'extension/module/smsassistent.message.settings.twig' %}
+              </fieldset>
+              <fieldset>
+                <legend>{{ text_narc_admin }}</legend>
+                {# narc-admin-id #}
+                {# mod-rec-osId #}
+                {% set mod = 'narc' %}
+                {% set rec = 'admin' %}
+                {% set osId = 0 %}
+                {% include 'extension/module/smsassistent.message.settings.twig' %}
+              </fieldset>
+            </div>
+            {# вкладка Логи #}
+            <div class="tab-pane" id="tab-logs">
+              <fieldset>
+                <legend>{{ text_logs }}</legend>
+                <div class="form-group">
+                  <div class="panel-body">
+                    <textarea wrap="off" rows="20" readonly class="form-control">{{ smsassistent_log }}</textarea>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}
