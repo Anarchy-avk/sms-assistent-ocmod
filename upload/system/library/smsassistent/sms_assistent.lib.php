@@ -76,7 +76,11 @@ class sms_assistent
 
         }
 
-        $postdata['Vendor'] = $this->vendor;
+        if(!empty($this->vendor)) {
+
+            $postdata['Vendor'] = $this->vendor;
+
+        }
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $postdata);
         $res_info = curl_exec($curl);
