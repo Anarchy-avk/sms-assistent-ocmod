@@ -1,11 +1,8 @@
 <?php
 
-require DIR_SYSTEM . 'library/smsassistent/vendor/autoload.php';
+require DIR_SYSTEM . 'library/smsassistent/sms_assistent.lib.php';
 
-use GuzzleHttp\Client as GuzzleHttpClient;
-use ByZer0\SmsAssistantBy\Client;
-use ByZer0\SmsAssistantBy\Http\GuzzleClient;
-use ByZer0\SmsAssistantBy\Exceptions;
+use SmsAssistentBy\Lib as ass_lib;
 
 class SMSAssistent {
 
@@ -18,33 +15,21 @@ class SMSAssistent {
         $this->config = $extConfig;
         $this->db = $db;
 
-        if (file_exists(__DIR__ . '/smsassistent/cacert.pem')) {
-            $client = new GuzzleHttpClient(['verify' => __DIR__ . '/smsassistent/cacert.pem']);
-        } else {
-            $client = null;
-        }
-
-        $this->client = new Client(new GuzzleClient($client));
-        $this->client->setUsername($this->config->get('smsassistent_ms_api_username'));
-
+        $api_username = $this->config->get('smsassistent_ms_api_username');
         $api_token = $this->config->get('smsassistent_ms_api_token');
         $api_password = $this->config->get('smsassistent_ms_api_password');
-        $sender_name = $this->config->get('smsassistent_ms_sender_name');
 
-        if ($api_token != '') {
-            $this->client->setToken($api_token);
-        } else if ($api_password !== '') {
-            $this->client->setPassword($api_password);
-        }
+        $this->client = new ass_lib\sms_assistent($api_username, $api_password, $api_token);
 
-        if ($sender_name != '') {
-            $this->client->setSender($this->config->get('smsassistent_ms_sender_name'));
-        }
+        $default_sender_name_sms = $this->config->get('smsassistent_ms_sender_name_sms');
+        $default_sender_name_viber = $this->config->get('smsassistent_ms_sender_name_viber');
+        $this->client->setSenderSMS($default_sender_name_sms)->setSenderViber($default_sender_name_viber);
 
         $base_url = $this->config->get('smsassistent_ms_base_url');
         if ($base_url != '') {
-            $this->client->setBaseUrl($base_url);
+            $this->client->setUrl($base_url);
         }
+        $this->client->setVendor('OpenCart');
 
         $this->logger = new \Log('smsassistent.log');
         $this->logger->write("SMSAssistent client created");
@@ -103,44 +88,56 @@ class SMSAssistent {
         return str_replace(array_keys($findReplace), array_values($findReplace), $template);
     }
 
-    private function sendMessage($phones, $messageText) {
+    private function sendMessageSMS($phones, $messageText) {
         if (count($phones) > 0) {
-            try {
-                if (count($phones) === 1) {
-                    $this->client->sendMessage($phones[0], $messageText);
-                } else {
-                    $default = [
-                        'text' => $messageText
-                    ];
 
-                    $messages = [];
-                    foreach ($phones as $phone) {
-                        $messages[] = [
-                            'phone' => $phone
-                        ];
-                    }
-                    $this->client->sendMessages($messages, $default);
-                }
-            } catch (Exceptions\LowBalanceException $e) {
-                $this->logger->write("Catch exception: LowBalanceException (Code: -1)\n" . $e->getTraceAsString());
-            } catch (Exceptions\AuthentificationException $e) {
-                $this->logger->write("Catch exception: AuthentificationException (Codes: -2, -6, -7)\n" . $e->getTraceAsString());
-            } catch (Exceptions\MessageTextException $e) {
-                $this->logger->write("Catch exception: MessageTextException (Code: -3)\n" . $e->getTraceAsString());
-            } catch (Exceptions\PhoneNumberException $e) {
-                $this->logger->write("Catch exception: PhoneNumberException (Code: -4)\n" . $e->getTraceAsString());
-            } catch (Exceptions\SenderNameException $e) {
-                $this->logger->write("Catch exception: SenderNameException (Code: -5)\n" . $e->getTraceAsString());
-            } catch (Exceptions\ServerException $e) {
-                $this->logger->write("Catch exception: ServerException (Code: -10, -12, -13)\n" . $e->getTraceAsString());
-            } catch (Exceptions\MessageIdException $e) {
-                $this->logger->write("Catch exception: MessageIdException (Code: -11)\n" . $e->getTraceAsString());
-            } catch (Exceptions\SendTimeException $e) {
-                $this->logger->write("Catch exception: SendTimeException (Code: -14, -15)\n" . $e->getTraceAsString());
-            } catch (Exception $e) {
-                $this->logger->write("Unknown exception: " . $e->getMessage() . "\n" . $e->getTraceAsString());
-            }
+            $result = $this->client->sendSms($phones, $messageText);
+            $this->writeErrorSendLogSMS($result);
+            if($result['result'][0]['sms_code'] > 0)
+                return true;
+            else return false;
+
         }
+    }
+
+    private function sendMessageViber($phones, $messageText, $promo, $elseSMS) {
+        if (count($phones) > 0) {
+            $result = $this->client->sendViber($phones, $messageText, 48, false , $promo, $elseSMS);
+            $this->writeErrorSendLogViber($result);
+
+            if($result['result'][0]['message_code'] > 0)
+                return true;
+            else return false;
+        }
+    }
+
+    private function getPromo($mod, $rec, $id){
+        if($this->config->get("smsassistent_{$mod}_{$rec}_promo_{$id}") == 0)
+            return array();
+        $image = $this->config->get("smsassistent_{$mod}_{$rec}_viber_image_{$id}");
+        $button = $this->config->get("smsassistent_{$mod}_{$rec}_viber_button_text_{$id}");
+        $url = $this->config->get("smsassistent_{$mod}_{$rec}_viber_button_url_{$id}");
+        if($image != '' && $button != '' && $url != '')
+            return array(
+                'viber_image' => $image,
+                'viber_button' => $button,
+                'viber_url' => $url
+            );
+        else return array();
+    }
+
+    private function getElseSMS($mod, $rec, $id){
+        $active = $this->config->get("smsassistent_{$mod}_{$rec}_else_sms_{$id}");
+        if($active == 0)
+            return array();
+        $sender = $this->config->get("smsassistent_{$mod}_{$rec}_sender_else_sms_{$id}");
+        if($sender == '')
+            $sender = $this->config->get("smsassistent_ms_sender_name_sms");
+        $text = $this->config->get("smsassistent_{$mod}_{$rec}_text_else_sms_{$id}");
+        return array(
+            'sms_sender' => $sender,
+            'sms_text' => $text
+        );
     }
 
     /**
@@ -157,10 +154,10 @@ class SMSAssistent {
             $query .= " AND `additional_related_id` = $additionalRelatedId";
         }
         $query = $this->db->query($query);
-
         $this->logger->write("Check if sended message earlier (type=$type, relatedId=$relatedId, additionalRelatedId=$additionalRelatedId, notificate=$notificate) - " . $query->num_rows);
         return ($query->num_rows > 0);
     }
+
 
     /**
      * @param $type         string      Type of notification
@@ -172,16 +169,85 @@ class SMSAssistent {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "smsassistent_send_log` (`type`, `related_id`, `additional_related_id`, `notificate`, `created_at`) VALUES ('$type', $relatedId, " . ($additionalRelatedId ? $additionalRelatedId : 'NULL') . ", '$notificate', NOW())");
     }
 
+    private function writeErrorSendLogSMS($res){
+        if($res['error'] > 0){
+            foreach ($res['error_messages'] as $err)
+                $this->logger->write("Error: $err");
+        }
+        else{
+            if($res['result'][0]['sms_error'] == 0)
+                $this->logger->write("Message sent. Method: ".$res['type'] );
+            else
+                $this->logger->write("Error: ".$res['result'][0]['sms_error_msg']);
+        }
+    }
+
+    private function writeErrorSendLogViber($res){
+        if($res['error'] > 0){
+            foreach ($res['error_messages'] as $err)
+                $this->logger->write("Error: $err");
+        }
+        else{
+            if($res['result'][0]['message_error'] == 0)
+                $this->logger->write("Message sent. Method: ".$res['type'] );
+            else
+                $this->logger->write("Error: ".$res['result'][0]['message_error_msg']);
+        }
+    }
+
+    private function writeOrderLog($order, $newStatus){
+
+        $this->logger->write("Order info: order=".$order['order_id'].", new status=".$newStatus);
+    }
+
+    private function writeMessageLog($mod, $rec, $messenger, $sender, $phones, $message){
+
+        if($mod == "naco")
+            $this->logger->write("--- ".$messenger." notification of order status change ---");
+        elseif ($mod == "narc")
+            $this->logger->write("--- ".$messenger." notification of adding a new user ---");
+        if(is_array($phones))
+            $phones = implode(", ", $phones);
+        $this->logger->write("Sender: ".$sender.", recipient: ".$rec."(".$phones.")");
+        $this->logger->write("Message: ".$message);
+
+    }
+
+    private function writeNewUserLog($user){
+
+        $this->logger->write("New user #".$user['customer_id'].": name: ".$user['firstname']." ".$user['lastname']."; phone: ".$user['telephone']);
+    }
+
     public function nacoCustomerNotification($order_info, $order_status_id, $order_product_query, $currency) {
 
         if ($this->checkSendedLog('order', $order_info['order_id'], $order_status_id, 'customer')) {
             return;
         }
 
-        $phones[] = $order_info['telephone'];
-        $messageText = $this->nacoPrepareMessage($this->config->get("smsassistent_naco_customer_text_$order_status_id"), $order_info, $order_product_query, $currency);
+        $phone[] = $order_info['telephone'];
+        $messenger = $this->config->get("smsassistent_naco_customer_status_$order_status_id");
+        $messageText = $this->nacoPrepareMessage($this->config->get("smsassistent_naco_customer_text_".$messenger."_".$order_status_id), $order_info, $order_product_query, $currency);
 
-        $this->sendMessage($phones, $messageText);
+        $sender = $this->config->get("smsassistent_naco_customer_sender_".$messenger."_".$order_status_id);
+
+        if($messenger == "sms"){
+            if($sender != '')
+                $this->client->setSenderSMS($sender);
+            $this->writeMessageLog("naco", "customer", $messenger, $this->client->getSenderSMS(), $phone, $messageText);
+            $this->writeOrderLog($order_info, $order_status_id);
+            $this->sendMessageSMS($phone, $messageText);
+        }
+        if($messenger == "viber") {
+            if($sender != '')
+                $this->client->setSenderViber($sender);
+            $promo = $this->getPromo("naco", "customer", $order_status_id);
+            $elseSMS = $this->getElseSMS("naco", "customer", $order_status_id);
+            if(count($elseSMS) > 0 && $elseSMS['sms_text'] != '')
+                $elseSMS['sms_text'] = $this->nacoPrepareMessage($elseSMS['sms_text'], $order_info, $order_product_query, $currency);
+            $this->writeMessageLog("naco", "customer", $messenger, $this->client->getSenderViber(), $phone, $messageText);
+            $this->writeOrderLog($order_info, $order_status_id);
+            $this->sendMessageViber($phone, $messageText, $promo, $elseSMS);
+        }
 
         $this->addSendedLog('order', $order_info['order_id'], $order_status_id, 'customer');
     }
@@ -192,14 +258,33 @@ class SMSAssistent {
             return;
         }
 
-        $phones = explode(';', $this->config->get("smsassistent_naco_admin_phones_$order_status_id"));
-        $messageText = $this->nacoPrepareMessage($this->config->get("smsassistent_naco_admin_text_$order_status_id"), $order_info, $order_product_query, $currency);
+        $messenger = $this->config->get("smsassistent_naco_admin_status_$order_status_id");
+        $phones = explode(';', $this->config->get("smsassistent_naco_admin_phones_".$messenger."_".$order_status_id));
+        $messageText = $this->nacoPrepareMessage($this->config->get("smsassistent_naco_admin_text_".$messenger."_".$order_status_id), $order_info, $order_product_query, $currency);
 
-        if (count($phones) > 0) {
-            $this->sendMessage($phones, $messageText);
+        $sender = $this->config->get("smsassistent_naco_admin_sender_".$messenger."_".$order_status_id);
 
-            $this->addSendedLog('order', $order_info['order_id'], $order_status_id, 'admin');
+        if($messenger == "sms"){
+            if($sender != '')
+                $this->client->setSenderSMS($sender);
+            $this->writeMessageLog("naco", "admin", $messenger, $this->client->getSenderSMS(), $phones, $messageText);
+            $this->writeOrderLog($order_info, $order_status_id);
+            $this->sendMessageSMS($phones, $messageText);
         }
+        if($messenger == "viber") {
+            if($sender != '')
+                $this->client->setSenderViber($sender);
+            $promo = $this->getPromo("naco", "admin", $order_status_id);
+            $elseSMS = $this->getElseSMS("naco", "admin", $order_status_id);
+            if(count($elseSMS) > 0 && $elseSMS['sms_text'] != '')
+                $elseSMS['sms_text'] = $this->nacoPrepareMessage($elseSMS['sms_text'], $order_info, $order_product_query, $currency);
+            $this->writeMessageLog("naco", "admin", $messenger, $this->client->getSenderViber(), $phones, $messageText);
+            $this->writeOrderLog($order_info, $order_status_id);
+            $this->sendMessageViber($phones, $messageText, $promo, $elseSMS);
+        }
+
+        $this->addSendedLog('order', $order_info['order_id'], $order_status_id, 'customer');
+
     }
 
     public function narcCustomerNotification($customer) {
@@ -208,10 +293,30 @@ class SMSAssistent {
             return;
         }
 
-        $phones[] = $customer['telephone'];
-        $messageText = $this->narcPrepareMessage($this->config->get('smsassistent_narc_customer_text'), $customer);
+        $messenger = $this->config->get("smsassistent_narc_customer_status_0");
+        $phone[] = $customer['telephone'];
+        $messageText = $this->narcPrepareMessage($this->config->get("smsassistent_narc_customer_text_".$messenger."_0"), $customer);
 
-        $this->sendMessage($phones, $messageText);
+        $sender = $this->config->get("smsassistent_narc_customer_sender_".$messenger."_0");
+
+        if($messenger == "sms"){
+            if($sender != '')
+                $this->client->setSenderSMS($sender);
+            $this->writeMessageLog("narc", "customer", $messenger, $this->client->getSenderSMS(), $phone, $messageText);
+            $this->writeNewUserLog($customer);
+            $this->sendMessageSMS($phone, $messageText);
+        }
+        if($messenger == "viber") {
+            if($sender != '')
+                $this->client->setSenderViber($sender);
+            $promo = $this->getPromo("narc", "customer", 0);
+            $elseSMS = $this->getElseSMS("narc", "customer", 0);
+            if(count($elseSMS) > 0 && $elseSMS['sms_text'] != '')
+                $elseSMS['sms_text'] = $this->narcPrepareMessage($elseSMS['sms_text'], $customer);
+            $this->writeMessageLog("narc", "customer", $messenger, $this->client->getSenderViber(), $phone, $messageText);
+            $this->sendMessageViber($phone, $messageText, $promo, $elseSMS);
+
+        }
 
         $this->addSendedLog('customer', $customer['customer_id'], null, 'customer');
     }
@@ -222,13 +327,30 @@ class SMSAssistent {
             return;
         }
 
-        $phones = explode(';', $this->config->get('smsassistent_narc_admin_phones'));
-        $messageText = $this->narcPrepareMessage($this->config->get('smsassistent_narc_admin_text'), $customer);
+        $messenger = $this->config->get("smsassistent_narc_admin_status_0");
+        $phones = explode(';', $this->config->get("smsassistent_narc_admin_phones_".$messenger."_0"));
+        $messageText = $this->narcPrepareMessage($this->config->get("smsassistent_narc_admin_text_".$messenger."_0"), $customer);
 
-        if (count($phones) > 0) {
-            $this->sendMessage($phones, $messageText);
+        $sender = $this->config->get("smsassistent_narc_admin_sender_".$messenger."_0");
 
-            $this->addSendedLog('customer', $customer['customer_id'], null, 'admin');
+        if($messenger == "sms"){
+            if($sender != '')
+                $this->client->setSenderSMS($sender);
+            $this->writeMessageLog("narc", "admin", $messenger, $this->client->getSenderSMS(), $phones, $messageText);
+            $this->writeNewUserLog($customer);
+            $this->sendMessageSMS($phones, $messageText);
         }
+        if($messenger == "viber") {
+            if($sender != '')
+                $this->client->setSenderViber($sender);
+            $promo = $this->getPromo("narc", "admin", 0);
+            $elseSMS = $this->getElseSMS("narc", "admin", 0);
+            if(count($elseSMS) > 0 && $elseSMS['sms_text'] != '')
+                $elseSMS['sms_text'] = $this->narcPrepareMessage($elseSMS['sms_text'], $customer);
+            $this->writeMessageLog("narc", "admin", $messenger, $this->client->getSenderViber(), $phones, $messageText);
+            $this->sendMessageViber($phones, $messageText, $promo, $elseSMS);
+        }
+
+        $this->addSendedLog('customer', $customer['customer_id'], null, 'customer');
     }
 }
