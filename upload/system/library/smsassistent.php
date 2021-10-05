@@ -29,6 +29,7 @@ class SMSAssistent {
         if ($base_url != '') {
             $this->client->setUrl($base_url);
         }
+        $this->client->setVendor('OpenCart');
 
         $this->logger = new \Log('smsassistent.log');
         $this->logger->write("SMSAssistent client created");

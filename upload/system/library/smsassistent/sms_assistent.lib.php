@@ -6,6 +6,7 @@ class sms_assistent
 {
 
     private $version = '1.9';
+    private $vendor = null;
 
     private $api_url = 'https://userarea.sms-assistent.by/';
     private $user_login = '';
@@ -74,6 +75,8 @@ class sms_assistent
             curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
 
         }
+
+        $postdata['Vendor'] = $this->vendor;
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $postdata);
         $res_info = curl_exec($curl);
@@ -815,29 +818,23 @@ class sms_assistent
 
     public function setWebhookUrl($url)
     {
-
         $this->webhook_url = $url;
 
         return true;
-
     }
 
     public function setSubscribeName($name)
     {
-
         $this->subscribe_name = strip_tags($name);
 
         return true;
-
     }
 
     public function setUrl($url)
     {
-
         $this->api_url = $url;
 
         return true;
-
     }
 
     public function setSenderSMS($sender)
@@ -862,6 +859,13 @@ class sms_assistent
     public function getSenderViber()
     {
         return $this->sender_viber;
+    }
+
+    public function setVendor($vendor)
+    {
+        $this->vendor = $vendor;
+
+        return true;
     }
 
 }
