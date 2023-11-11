@@ -283,7 +283,7 @@ class SMSAssistent {
             $this->sendMessageViber($phones, $messageText, $promo, $elseSMS);
         }
 
-        $this->addSendedLog('order', $order_info['order_id'], $order_status_id, 'customer');
+        $this->addSendedLog('order', $order_info['order_id'], $order_status_id, 'admin');
 
     }
 
@@ -351,6 +351,6 @@ class SMSAssistent {
             $this->sendMessageViber($phones, $messageText, $promo, $elseSMS);
         }
 
-        $this->addSendedLog('customer', $customer['customer_id'], null, 'customer');
+        $this->addSendedLog('customer', $customer['customer_id'], null, 'admin');
     }
 }
